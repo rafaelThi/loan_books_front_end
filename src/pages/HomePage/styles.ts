@@ -1,3 +1,4 @@
+import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const DivHeader = styled.div`
@@ -9,12 +10,6 @@ a {
   color: #DBDBDB;
   margin-right: 19px;
 
-  transition: 0.3s;
-
-  &:hover{
-    transform: scale(1.06);
-
-    }
   }
 
 `;
@@ -52,6 +47,12 @@ span {
   font-family: Poppins, sans-serif;
   margin:18px;
 }
+
+a {
+    text-decoration: none;
+    color: #fff;
+  }
+
 `;
 
 export const Img = styled.img`
@@ -76,21 +77,15 @@ display:flex;
 justify-content: center;
 align-items: center;
 
+text-decoration: none;
 
-transition: 0.3s;
+transition: 0.2s;
 
 outline: none;
 border: none;
 
-  a {
-    text-decoration: none;
-    color: #ffff;
-  }
-
- &:hover{
-  opacity: 0.8;
-  background-color: #44D370;
-  transform: scale(1.02);
-
+&:hover{
+  background: ${shade(0.2, '#04d361')};
  }
+
 `;

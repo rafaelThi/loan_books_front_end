@@ -4,13 +4,13 @@ import {
   Button, Title, DivButt, Img, ImgFundo, DivCapa, DivHeader,
 } from './styles';
 import ImgButton from '../../assets/imgButton.svg';
-import capa from '../../assets/livros.jpg';
+import theme from '../../assets/livros.jpg';
 
 const HomePage: React.FC = () => (
   <div>
     <DivHeader>
       <Logo />
-      <a href="/">Admin</a>
+      <a href="/admin-login">Admin</a>
     </DivHeader>
     <DivCapa>
       <Title>
@@ -19,14 +19,16 @@ const HomePage: React.FC = () => (
         de livros online.
       </Title>
 
-      <ImgFundo src={capa} />
+      <ImgFundo src={theme} />
     </DivCapa>
 
     <DivButt>
-      <Button>
-        <Img src={ImgButton} />
-        <a href="/">Procurar um livro</a>
-      </Button>
+      <a href="/login">
+        <Button>
+          <Img src={ImgButton} />
+          Procurar um livro
+        </Button>
+      </a>
       <span>
         Total de livros já
         <br />
