@@ -1,6 +1,6 @@
 import { Form } from '@unform/web';
 import React from 'react';
-import Logo from '../../components/Logo/logo';
+import Logo from '../../components/Logo';
 import { Container, Title } from './styles';
 
 const RegisterUserPage:React.FC = () => {

@@ -1,6 +1,6 @@
 import React, { FormEvent } from 'react';
 import { Form } from '@unform/web';
-import Logo from '../../components/Logo/logo';
+import Logo from '../../components/Logo';
 import { Container, Title, H3 } from './styles';
 
 const AdminPageLogin:React.FC = () => {

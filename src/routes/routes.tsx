@@ -5,6 +5,7 @@ import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 import AdminLogin from '../pages/AdminLogin';
 import RegisterUserPage from '../pages/RegisterUserPage';
+import RegisterNewAdmin from '../pages/RegisterNewAdmin';
 
 const Routes:React.FC = () => (
   <Switch>
@@ -14,6 +15,7 @@ const Routes:React.FC = () => (
     <Route path="/admin-login" component={AdminLogin} />
 
     <Route path="/register-user" component={RegisterUserPage} />
+    <Route path="/register-new-admin-321" component={RegisterNewAdmin} />
   </Switch>
 );
 

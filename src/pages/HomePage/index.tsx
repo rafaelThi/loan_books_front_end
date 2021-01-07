@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../../components/Logo/logo';
+import Logo from '../../components/Logo';
 import {
   Button, Title, DivButt, Img, ImgFundo, DivCapa, DivHeader,
 } from './styles';
