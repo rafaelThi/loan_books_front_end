@@ -29,11 +29,6 @@ const HomePage: React.FC = () => (
           Procurar um livro
         </Button>
       </a>
-      <span>
-        Total de livros já
-        <br />
-        emprestados: 165
-      </span>
     </DivButt>
 
   </div>

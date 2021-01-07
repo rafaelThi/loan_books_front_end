@@ -25,7 +25,7 @@ const LoginPage:React.FC = () => {
             Caso não tenha um login faça um agora
             {' '}
             {' '}
-            <a href="/login">clicando aqui.</a>
+            <a href="/register-user">clicando aqui.</a>
           </H3>
 
           <input
