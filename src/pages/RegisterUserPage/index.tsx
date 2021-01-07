@@ -1,5 +1,6 @@
 import { Form } from '@unform/web';
 import React from 'react';
+import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import { Container, Title } from './styles';
 
@@ -46,6 +47,7 @@ const RegisterUserPage:React.FC = () => {
           <button type="submit">Salvar</button>
         </Form>
       </Container>
+      <BackButton />
     </>
   );
 };

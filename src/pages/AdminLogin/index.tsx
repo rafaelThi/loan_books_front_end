@@ -2,6 +2,7 @@ import React, { FormEvent } from 'react';
 import { Form } from '@unform/web';
 import Logo from '../../components/Logo';
 import { Container, Title, H3 } from './styles';
+import BackButton from '../../components/BackButton';
 
 const AdminPageLogin:React.FC = () => {
   async function handleLoginAdmin(event:FormEvent<HTMLFormElement>): Promise<void> {
@@ -41,6 +42,8 @@ const AdminPageLogin:React.FC = () => {
         </Form>
 
       </Container>
+
+      <BackButton />
 
     </>
   );

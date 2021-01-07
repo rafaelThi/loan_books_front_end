@@ -1,5 +1,6 @@
 import { Form } from '@unform/web';
 import React, { FormEvent } from 'react';
+import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import { Container, Title, H3 } from './styles';
 
@@ -39,7 +40,7 @@ const LoginPage:React.FC = () => {
             placeholder="Senha"
           />
           <span>
-            <a href="/">
+            <a href="/recover-password">
               Esqueci minha senha
             </a>
           </span>
@@ -47,6 +48,8 @@ const LoginPage:React.FC = () => {
         </Form>
 
       </Container>
+
+      <BackButton />
 
     </>
   );
