@@ -28,9 +28,7 @@ const AdminPageLogin:React.FC = () => {
           ),
         password: Yup.string().min(6, 'Senha invalida, no minino 6 caracteres'),
       });
-      await schema.validate({ email, password }, {
-        abortEarly: false,
-      });
+      await schema.validate({ email, password });
       history.push('/');// registro de livros
     } catch (err) {
       alert('E-mail ou senha incorreto');
