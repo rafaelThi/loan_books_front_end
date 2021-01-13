@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const A = styled.a`
 color: #DBDBDB;
 margin-left: 19px;
+margin-right: 30px;
 text-decoration: none;
 font-size:18px;
 display: flex;
