@@ -1,13 +1,47 @@
+import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import { Container, Title } from './styles';
 
 const RegisterNewAdmin:React.FC = () => {
-  function handleNewAdmin() {
-    console.log('novo admin');
-  }
+  const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
+
+  const [stateEmail, setStateEmail] = useState('');
+  const [statePassword, setStatePassword] = useState('');
+  const [stateName, setStateName] = useState('');
+
+  const handleNewAdmin = useCallback(async () => {
+    try {
+      const name = stateName;
+      const email = stateEmail;
+      const password = statePassword;
+
+      const schema = Yup.object().shape({
+        name: Yup.string().min(5, 'Digite o nome completo').required(),
+        email: Yup.string()
+          . required('Digite um e-mail válido.')
+          .email(
+            `Digite um e-mail válido
+          "ex@ex.com".`,
+          ),
+
+        password: Yup.string().min(6, 'Senha invalida'),
+
+      });
+
+      await schema.validate({ name, email, password });
+
+      history.push('/admin-login');
+    } catch (err) {
+      alert(`Digite todos os dados.
+${err}`);
+    }
+  }, [history, stateEmail, stateName, statePassword]);
   return (
     <>
       <Logo />
@@ -19,9 +53,11 @@ const RegisterNewAdmin:React.FC = () => {
         preencher seus dados abaixo!
       </Title>
       <Container>
-        <Form onSubmit={handleNewAdmin}>
+        <Form ref={formRef} onSubmit={handleNewAdmin}>
           <span> Nome completo:</span>
           <input
+            value={stateName}
+            onChange={(e) => setStateName(e.target.value)}
             name="name"
             type="text"
             placeholder="Nome completo..."
@@ -29,6 +65,8 @@ const RegisterNewAdmin:React.FC = () => {
           <span> Email:</span>
           <div>
             <input
+              value={stateEmail}
+              onChange={(e) => setStateEmail(e.target.value)}
               name="email"
               type="email"
               placeholder="E-mail..."
@@ -38,6 +76,8 @@ const RegisterNewAdmin:React.FC = () => {
           <div>
             <span> Senha:</span>
             <input
+              value={statePassword}
+              onChange={(e) => setStatePassword(e.target.value)}
               name="password"
               type="password"
               placeholder="Senha..."
