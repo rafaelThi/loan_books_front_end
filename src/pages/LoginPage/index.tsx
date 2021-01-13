@@ -1,22 +1,45 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useCallback, useRef, useState } from 'react';
-// import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import { Container, Title, H3 } from './styles';
 
 const LoginPage:React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
 
   const [stateEmail, setStateEmail] = useState('');
   const [statePassword, setStatePassword] = useState('');
 
   const handleLoginUsers = useCallback(async () => {
-    const email = stateEmail;
-    const password = statePassword;
-    console.log({ email, password });
-  }, [stateEmail, statePassword]);
+    try {
+      const email = stateEmail;
+      const password = statePassword;
+
+      console.log({ email, password });
+
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          . required('Digite um e-mail válido.')
+          .email(
+            `Digite um e-mail válido
+          "ex@ex.com".`,
+          ),
+
+        password: Yup.string().required().min(6, 'Senha invalida'),
+      });
+
+      await schema.validate({ email, password });
+
+      history.push('/search');
+    } catch (err) {
+      console.log(Error('Erro no logion'));
+    }
+  }, [stateEmail, statePassword, history]);
+
   return (
     <>
       <Logo />
