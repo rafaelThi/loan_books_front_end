@@ -28,7 +28,7 @@ a {
 
 `;
 
-export const Container = styled.form`
+export const Container = styled.div`
 
   display:flex;
   justify-content: center;
@@ -47,7 +47,7 @@ input{
   border-radius:5px;
   color: #3a3a3a;
   margin-bottom:25px;
-  color:#ffffff;
+  color:#000;
 
 }
 input::placeholder {

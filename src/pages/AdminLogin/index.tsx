@@ -1,16 +1,39 @@
-import React, { FormEvent } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Form } from '@unform/web';
+import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import { Container, Title, H3 } from './styles';
 import BackButton from '../../components/BackButton';
 
 const AdminPageLogin:React.FC = () => {
-  async function handleLoginAdmin(event:FormEvent<HTMLFormElement>): Promise<void> {
-    event?.preventDefault();
-    return (
-      console.log('Função do botão logar do Admin')
-    );
-  }
+  const history = useHistory();
+
+  const [stateEmailAdmin, setStateEmailAdmin] = useState('');
+  const [statePasswordAdmin, setStatePasswordAdmin] = useState('');
+
+  const handleLoginAdmin = useCallback(async () => {
+    try {
+      const email = stateEmailAdmin;
+      const password = statePasswordAdmin;
+
+      // console.log({ email, password });
+
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          . required('Digite um e-mail válido.')
+          .email(
+            `Digite um e-mail válido
+          "ex@ex.com".`,
+          ),
+        password: Yup.string().required().min(6, 'Senha invalida'),
+      });
+      await schema.validate({ email, password });
+      history.push('/');// registro de livros
+    } catch (err) {
+      console.log(Error('Erro no logion'));
+    }
+  }, [stateEmailAdmin, statePasswordAdmin, history]);
 
   return (
     <>
@@ -28,11 +51,15 @@ const AdminPageLogin:React.FC = () => {
           </H3>
 
           <input
+            value={stateEmailAdmin}
+            onChange={(e) => setStateEmailAdmin(e.target.value)}
             name="email"
-            type="text"
+            type="email"
             placeholder="E-mail"
           />
           <input
+            value={statePasswordAdmin}
+            onChange={(e) => setStatePasswordAdmin(e.target.value)}
             name="password"
             type="password"
             placeholder="Senha"

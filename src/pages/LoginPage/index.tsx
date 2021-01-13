@@ -19,7 +19,7 @@ const LoginPage:React.FC = () => {
       const email = stateEmail;
       const password = statePassword;
 
-      console.log({ email, password });
+      // console.log({ email, password });
 
       const schema = Yup.object().shape({
         email: Yup.string()

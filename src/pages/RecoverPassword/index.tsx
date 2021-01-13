@@ -32,7 +32,7 @@ const RecoverPassword:React.FC = () => {
 
           <input
             name="email"
-            type="text"
+            type="email"
             placeholder="E-mail"
           />
           <button type="submit">Enviar</button>

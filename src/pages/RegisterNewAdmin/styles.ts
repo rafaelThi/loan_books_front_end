@@ -12,7 +12,7 @@ text-align: center;
 margin-top: -20px;
 `;
 
-export const Container = styled.form`
+export const Container = styled.div`
 
   display:flex;
   justify-content: center;
