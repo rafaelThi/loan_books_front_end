@@ -26,12 +26,14 @@ const AdminPageLogin:React.FC = () => {
             `Digite um e-mail válido
           "ex@ex.com".`,
           ),
-        password: Yup.string().required().min(6, 'Senha invalida'),
+        password: Yup.string().min(6, 'Senha invalida, no minino 6 caracteres'),
       });
-      await schema.validate({ email, password });
+      await schema.validate({ email, password }, {
+        abortEarly: false,
+      });
       history.push('/');// registro de livros
     } catch (err) {
-      console.log(Error('Erro no logion'));
+      alert('E-mail ou senha incorreto');
     }
   }, [stateEmailAdmin, statePasswordAdmin, history]);
 

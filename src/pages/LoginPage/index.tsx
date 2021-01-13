@@ -29,14 +29,14 @@ const LoginPage:React.FC = () => {
           "ex@ex.com".`,
           ),
 
-        password: Yup.string().required().min(6, 'Senha invalida'),
+        password: Yup.string().min(6, 'Senha invalida'),
       });
 
       await schema.validate({ email, password });
 
       history.push('/search');
     } catch (err) {
-      console.log(Error('Erro no logion'));
+      alert('E-mail ou senha incorreto');
     }
   }, [stateEmail, statePassword, history]);
 

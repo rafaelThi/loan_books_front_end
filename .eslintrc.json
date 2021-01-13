@@ -26,6 +26,8 @@
       "@typescript-eslint"
   ],
   "rules": {
+    "no-alert":"off",
+    "camelcase":"off",
     "arrow-body-style":"off",
     "no-console":"off",
     "no-use-before-define": "off",
