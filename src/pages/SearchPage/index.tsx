@@ -9,6 +9,7 @@ import Logo from '../../components/Logo';
 import {
   Title, H3, Container, DivHeader, Span, Books, DivMargin,
 } from './styles';
+import api from '../../server/api';
 
 const SearchPage: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -25,6 +26,10 @@ const SearchPage: React.FC = () => {
         name: Yup.string().required('Digite o Título que busca.'),
       });
       await schema.validate({ name });
+
+      await api.get(`/requisition-book/list-one-book-name/${name}`).then((response) => {
+        console.log(response.data);
+      });
     } catch (err) {
       alert(`Ops, parece que esqueceu de digitar algo!.
 ${err}`);

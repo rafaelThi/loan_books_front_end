@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
+import api from '../../server/api';
 import { Container, Title, H3 } from './styles';
 
 const LoginPage:React.FC = () => {
@@ -34,9 +35,15 @@ const LoginPage:React.FC = () => {
 
       await schema.validate({ email, password });
 
+      await api.post('session-users', {
+        email: stateEmail,
+        password: statePassword,
+      });
+
       history.push('/search');
     } catch (err) {
-      alert('E-mail ou senha incorreto');
+      alert(`E-mail ou senha incorreto
+                ${err}`);
     }
   }, [stateEmail, statePassword, history]);
 

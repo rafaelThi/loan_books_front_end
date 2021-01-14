@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
+import api from '../../server/api';
 import { Container, Title } from './styles';
 
 const RegisterUserPage:React.FC = () => {
@@ -35,6 +36,12 @@ const RegisterUserPage:React.FC = () => {
       });
 
       await schema.validate({ name, email, password });
+
+      await api.post('/users/create-user', {
+        fullName: stateName,
+        email: stateEmail,
+        password: statePassword,
+      });
 
       history.push('/login');
     } catch (err) {

@@ -26,6 +26,7 @@ const BookPage: React.FC = () => {
         <p>
           Dono do livro: !Aleatório 1!
         </p>
+        {/* Rever esse trecho */}
         <button type="button">
           Solicitar
           {' '}
