@@ -7,7 +7,7 @@ import { FiChevronRight } from 'react-icons/fi';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import {
-  Title, H3, Container, DivHeader, Span, Books,
+  Title, H3, Container, DivHeader, Span, Books, DivMargin,
 } from './styles';
 
 const SearchPage: React.FC = () => {
@@ -115,18 +115,45 @@ ${err}`);
         </Form>
 
       </Container>
-      <Books>
-        <Link to="/repository">
-          <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
-          <div>
-            <strong>!CSS Cookbook - Soluções Rápidas para Problemas Comuns com CSS!</strong>
-            <p>
-              Author: !Christopher Schmitt!
-            </p>
-          </div>
-          <FiChevronRight size={20} />
-        </Link>
-      </Books>
+      <DivMargin>
+
+        <Books>
+          <Link to="/book">
+            <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
+            <div>
+              <strong>!CSS Cookbook - Soluções Rápidas para Problemas Comuns com CSS!</strong>
+              <p>
+                Autor: !Christopher Schmitt!
+              </p>
+            </div>
+            <FiChevronRight size={20} />
+          </Link>
+        </Books>
+        <Books>
+          <Link to="/book">
+            <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
+            <div>
+              <strong>!CSS Cookbook - Soluções Rápidas para Problemas Comuns com CSS!</strong>
+              <p>
+                Author: !Christopher Schmitt!
+              </p>
+            </div>
+            <FiChevronRight size={20} />
+          </Link>
+        </Books>
+        <Books>
+          <Link to="/book">
+            <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
+            <div>
+              <strong>!CSS Cookbook - Soluções Rápidas para Problemas Comuns com CSS!</strong>
+              <p>
+                Author: !Christopher Schmitt!
+              </p>
+            </div>
+            <FiChevronRight size={20} />
+          </Link>
+        </Books>
+      </DivMargin>
 
     </>
   );

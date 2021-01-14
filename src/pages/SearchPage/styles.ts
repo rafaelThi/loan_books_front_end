@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
+export const DivMargin = styled.div`
+margin-bottom: 50px;
+`;
+
 export const DivHeader = styled.div`
   display: flex;
   align-items: center;
@@ -40,7 +44,7 @@ input{
   display:block;
 
   height: 40px;
-  width:400px;
+  width:450px;
   padding:0 14px;
   border: 0;
   border-radius:10px;
@@ -51,7 +55,7 @@ input::placeholder {
     color:#a8a8b3;
   }
 button{
-  width: 195px;
+  width: 210px;
   height: 40px;
   background: #04D361;
   border-radius: 10px;
@@ -108,8 +112,8 @@ export const Books = styled.div`
     a {
       background: #fff;
       border-radius: 25px;
-      width:100%;
-      padding:24px;
+      width:90%;
+      padding:15px;
       display: block;
       text-decoration: none;
       display:flex;
@@ -121,19 +125,23 @@ export const Books = styled.div`
     img {
       width:64px;
       height:64px;
-      border-radius:100%
+      border-radius:30%
     }
     div {
       margin: 0 16px;
       flex: 1;
       strong {
         font-size: 20px;
-        color: #3D3D4D
+        color: #3D3D4D;
+        font-family: Roboto, sans-serif;
+       font-weight:700;
       }
       p {
         font-size: 18px;
-        color:#A8A883;
-        margin-top:4px
+        color:#A1A999;
+        margin-top:4px;
+        font-family: Roboto, sans-serif;
+       font-weight:300;
       }
       }
       svg {
