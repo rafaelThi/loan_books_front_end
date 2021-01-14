@@ -95,3 +95,53 @@ export const H3 = styled.h3`
   color:#ffffff;
 
 `;
+
+export const Books = styled.div`
+  margin-left: 100px;
+  margin-right: 5;
+
+  margin-top:25px;
+  max-width:700px;
+  background: #fff;
+  border-radius:25px;
+
+    a {
+      background: #fff;
+      border-radius: 25px;
+      width:100%;
+      padding:24px;
+      display: block;
+      text-decoration: none;
+      display:flex;
+      align-items:center;
+      transition: transform 0.3s;
+& + a {
+  margin-top:16px;
+}
+    img {
+      width:64px;
+      height:64px;
+      border-radius:100%
+    }
+    div {
+      margin: 0 16px;
+      flex: 1;
+      strong {
+        font-size: 20px;
+        color: #3D3D4D
+      }
+      p {
+        font-size: 18px;
+        color:#A8A883;
+        margin-top:4px
+      }
+      }
+      svg {
+        margin-left: auto;
+        color: #cbcbd6;
+      }
+      &:hover {
+        transform: translateX(10px)
+      }
+    }
+`;

@@ -1,12 +1,64 @@
+import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
+import { FiChevronRight } from 'react-icons/fi';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import {
-  Title, H3, Container, DivHeader, Span,
+  Title, H3, Container, DivHeader, Span, Books,
 } from './styles';
 
-const SearchPage:React.FC = () => {
+const SearchPage: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
+
+  const [titleBook, setTitleBook] = useState('');
+  const [authorBook, setAuthorBook] = useState('');
+  const [languageBook, setLanguageBook] = useState('');
+
+  const handleSearchTitle = useCallback(async () => {
+    try {
+      const name = titleBook;
+
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Digite o Título que busca.'),
+      });
+      await schema.validate({ name });
+    } catch (err) {
+      alert(`Ops, parece que esqueceu de digitar algo!.
+${err}`);
+    }
+  }, [titleBook]);
+
+  const handleSearchAuthor = useCallback(async () => {
+    try {
+      const name = authorBook;
+
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Digite o Autor que busca.'),
+      });
+      await schema.validate({ name });
+    } catch (err) {
+      alert(`Ops, parece que esqueceu de digitar algo!.
+${err}`);
+    }
+  }, [authorBook]);
+
+  const handleSearchLanguage = useCallback(async () => {
+    try {
+      const name = languageBook;
+
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Digite a linguagem que busca.'),
+      });
+      await schema.validate({ name });
+    } catch (err) {
+      alert(`Ops, parece que esqueceu de digitar algo!.
+${err}`);
+    }
+  }, [languageBook]);
+
   return (
     <>
       <DivHeader>
@@ -21,11 +73,13 @@ const SearchPage:React.FC = () => {
           Basta digitar o título, nome do autor ou a linguagem do livro que deseja encontrar;
         </H3>
         <Span>Pesquisar por; </Span>
-        <Form onSubmit={() => { console.log('Title'); }}>
+        <Form ref={formRef} onSubmit={handleSearchTitle}>
           <br />
           <span>Titulo: </span>
           <div>
             <input
+              value={titleBook}
+              onChange={(e) => setTitleBook(e.target.value)}
               name="titleBook"
               type="text"
               placeholder="Digite o nome do titulo..."
@@ -33,10 +87,12 @@ const SearchPage:React.FC = () => {
             <button type="submit">Pesquisar</button>
           </div>
         </Form>
-        <Form onSubmit={() => { console.log('autho'); }}>
+        <Form onSubmit={handleSearchAuthor}>
           <span>Autor: </span>
           <div>
             <input
+              value={authorBook}
+              onChange={(e) => setAuthorBook(e.target.value)}
               name="authorBook"
               type="text"
               placeholder="Digite o nome do autor..."
@@ -44,10 +100,12 @@ const SearchPage:React.FC = () => {
             <button type="submit">Pesquisar</button>
           </div>
         </Form>
-        <Form onSubmit={() => { console.log('language'); }}>
+        <Form onSubmit={handleSearchLanguage}>
           <span>Linguagem: </span>
           <div>
             <input
+              value={languageBook}
+              onChange={(e) => setLanguageBook(e.target.value)}
               name="languageBook"
               type="text"
               placeholder="Digite a liguagem..."
@@ -57,6 +115,19 @@ const SearchPage:React.FC = () => {
         </Form>
 
       </Container>
+      <Books>
+        <Link to="/repository">
+          <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
+          <div>
+            <strong>!CSS Cookbook - Soluções Rápidas para Problemas Comuns com CSS!</strong>
+            <p>
+              Author: !Christopher Schmitt!
+            </p>
+          </div>
+          <FiChevronRight size={20} />
+        </Link>
+      </Books>
+
     </>
   );
 };
