@@ -11,8 +11,19 @@ import {
 } from './styles';
 import api from '../../server/api';
 
+interface IBook {
+  id: string;
+  amount: number;
+  author: string;
+  language: string;
+  name: string;
+  owner_id: string;
+}
+
 const SearchPage: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+
+  const [booksName, setBooksName] = useState<IBook[]>([]);
 
   const [titleBook, setTitleBook] = useState('');
   const [authorBook, setAuthorBook] = useState('');
@@ -27,9 +38,9 @@ const SearchPage: React.FC = () => {
       });
       await schema.validate({ name });
 
-      await api.get(`/requisition-book/list-one-book-name/${name}`).then((response) => {
-        console.log(response.data);
-      });
+      const response = await api.get(`/requisition-book/list-one-book-name/${name}`);
+      setBooksName(response.data.findBookName);
+      console.log(response.data.findBookName);
     } catch (err) {
       alert(`Ops, parece que esqueceu de digitar algo!.
 ${err}`);
@@ -122,13 +133,30 @@ ${err}`);
       </Container>
       <DivMargin>
 
+        {booksName.map((bookName) => (
+          <Books key={bookName.id}>
+            <Link to={`/book/${bookName.id}`}>
+              <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
+              <div>
+                <strong>{bookName.name}</strong>
+                <p>
+                  Autor:
+                  {' '}
+                  {bookName.author}
+                </p>
+              </div>
+              <FiChevronRight size={20} />
+            </Link>
+          </Books>
+        ))}
+        {/*
         <Books>
           <Link to="/book">
             <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
             <div>
               <strong>!CSS Cookbook - Soluções Rápidas para Problemas Comuns com CSS!</strong>
               <p>
-                Autor: !Christopher Schmitt!
+                Author: !Christopher Schmitt!
               </p>
             </div>
             <FiChevronRight size={20} />
@@ -145,19 +173,7 @@ ${err}`);
             </div>
             <FiChevronRight size={20} />
           </Link>
-        </Books>
-        <Books>
-          <Link to="/book">
-            <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
-            <div>
-              <strong>!CSS Cookbook - Soluções Rápidas para Problemas Comuns com CSS!</strong>
-              <p>
-                Author: !Christopher Schmitt!
-              </p>
-            </div>
-            <FiChevronRight size={20} />
-          </Link>
-        </Books>
+        </Books> */}
       </DivMargin>
 
     </>

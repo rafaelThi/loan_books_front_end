@@ -22,7 +22,7 @@ const Routes:React.FC = () => (
     <Route path="/recover-password" component={RecoverPassword} />
 
     <Route path="/search" component={SearchPage} />
-    <Route path="/book" component={BookPage} />
+    <Route path="/book/:book+" component={BookPage} />
   </Switch>
 );
 
