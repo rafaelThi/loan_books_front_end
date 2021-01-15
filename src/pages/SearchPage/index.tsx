@@ -13,7 +13,7 @@ import api from '../../server/api';
 
 interface IBook {
   id: string;
-  amount: number;
+  img: string;
   author: string;
   language: string;
   name: string;
@@ -136,7 +136,7 @@ ${err}`);
         {booksName.map((bookName) => (
           <Books key={bookName.id}>
             <Link to={`/book/${bookName.id}`}>
-              <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
+              <img src={bookName.img} alt="img" />
               <div>
                 <strong>{bookName.name}</strong>
                 <p>

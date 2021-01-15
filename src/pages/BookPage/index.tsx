@@ -10,7 +10,7 @@ book : string;
 }
 interface IBook {
   id: string;
-  amount: number;
+  img: string;
   author: string;
   language: string;
   name: string;
@@ -45,7 +45,7 @@ const BookPage: React.FC = () => {
         <BackButton />
       </DivHeader>
       <DivH>
-        <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
+        <img src={booksName?.img} alt="img" />
         <div>
 
           <strong>{booksName?.name}</strong>
