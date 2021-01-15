@@ -42,8 +42,7 @@ const SearchPage: React.FC = () => {
       setBooksName(response.data.findBookName);
       console.log(response.data.findBookName);
     } catch (err) {
-      alert(`Ops, parece que esqueceu de digitar algo!.
-${err}`);
+      alert('Ops, parece que não achamos o livro que busca, você pode confirmar a escrita ou buscar pelo autor ou linguagem.');
     }
   }, [titleBook]);
 
@@ -55,9 +54,12 @@ ${err}`);
         name: Yup.string().required('Digite o Autor que busca.'),
       });
       await schema.validate({ name });
+
+      const response = await api.get(`/requisition-book/list-one-book-author/${name}`);
+      setBooksName(response.data.findBookAuthor);
+      console.log(response.data.findBookAuthor);
     } catch (err) {
-      alert(`Ops, parece que esqueceu de digitar algo!.
-${err}`);
+      alert('Ops, parece que não achamos o autor que busca, você pode confirmar a escrita ou buscar pelo nome do livro ou linguagem.');
     }
   }, [authorBook]);
 
@@ -69,9 +71,12 @@ ${err}`);
         name: Yup.string().required('Digite a linguagem que busca.'),
       });
       await schema.validate({ name });
+
+      const response = await api.get(`/requisition-book/list-one-book-language/${name}`);
+      setBooksName(response.data.findBookLanguage);
+      console.log(response.data.findBookLanguage);
     } catch (err) {
-      alert(`Ops, parece que esqueceu de digitar algo!.
-${err}`);
+      alert('Ops, parece que não achamos livros da linguagem que busca, você pode confirmar a escrita ou buscar pelo nome do livro ou autor.');
     }
   }, [languageBook]);
 
