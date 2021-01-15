@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { Form } from '@unform/web';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
@@ -26,7 +27,7 @@ interface IBook {
 const BookPage: React.FC = () => {
   const { params } = useRouteMatch<IBookDTO>();
   const [booksName, setBooksName] = useState<IBook | null>(null);
-  const [bookOwner, setBookOwner] = useState<IOwner | null>(null);
+  const [bookOwner, setBookOwner] = useState<IOwner>();
 
   useEffect(() => {
     api.get(`/requisition-book/list-book-id/${params.book}`).then((response) => {
@@ -37,6 +38,19 @@ const BookPage: React.FC = () => {
       setBookOwner(responseOwner.data.idOwner);
     });
   }, [setBooksName, params.book, booksName?.owner_id]);
+
+  const handleRequestBook = useCallback(async () => {
+    try {
+      const id_book = booksName?.id;
+      const id_admin = booksName?.owner_id;
+
+      await api.post(`/requests/request-book/${id_book}`, {
+        id_admin,
+      });
+    } catch (error) {
+      alert(`erro: ${error}`);
+    }
+  }, [booksName?.id, booksName?.owner_id]);
 
   return (
     <>
@@ -65,14 +79,15 @@ const BookPage: React.FC = () => {
           {' '}
           {bookOwner?.fullNameAdmin}
         </p>
-        {/* Rever esse trecho */}
-        <button type="button">
-          Solicitar
-          {' '}
-          <br />
-          {' '}
-          Empréstimo
-        </button>
+        <Form onSubmit={handleRequestBook}>
+          <button type="submit">
+            Solicitar
+            {' '}
+            <br />
+            {' '}
+            Empréstimo
+          </button>
+        </Form>
       </DivV>
     </>
   );

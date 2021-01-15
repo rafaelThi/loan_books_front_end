@@ -9,6 +9,7 @@ import RegisterNewAdmin from '../pages/RegisterNewAdmin';
 import RecoverPassword from '../pages/RecoverPassword';
 import SearchPage from '../pages/SearchPage';
 import BookPage from '../pages/BookPage';
+import RegisterBook from '../pages/RegisterBook';
 
 const Routes:React.FC = () => (
   <Switch>
@@ -23,6 +24,8 @@ const Routes:React.FC = () => (
 
     <Route path="/search" component={SearchPage} />
     <Route path="/book/:book+" component={BookPage} />
+
+    <Route path="/register-book-321" component={RegisterBook} />
   </Switch>
 );
 
