@@ -1,37 +1,44 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useCallback, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import api from '../../server/api';
 import { DivHeader } from '../HomePage/styles';
 import { Container, Title } from './styles';
 
+interface IAdminDTO {
+  id: string;
+}
+
 const RegisterBook:React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
+
+  const { params } = useRouteMatch<IAdminDTO>();
 
   const [stateAuthor, setStateAuthor] = useState('');
   const [stateName, setStateName] = useState('');
   const [stateLanguage, setStateLanguage] = useState('');
   const [stateImg, setStateImg] = useState('');
+  console.log(params);
 
   const handleRegisterUser = useCallback(async () => {
     try {
-      await api.post('/requisition-book/register-book', {
-        author: setStateAuthor,
-        name: setStateName,
-        language: setStateLanguage,
-        img: setStateImg,
+      await api.post(`/requisition-book/register-book/${params.id}`, {
+        author: stateAuthor,
+        name: stateName,
+        language: stateLanguage,
+        img: stateImg,
       });
 
-      history.push('/search');
+      history.push('/');
     } catch (err) {
       alert(`Digite todos os dados.
 ${err}`);
     }
-  }, [history]);
+  }, [history, params.id, stateAuthor, stateImg, stateLanguage, stateName]);
   return (
     <>
       <DivHeader>

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import { Container, Title, H3 } from './styles';
 import BackButton from '../../components/BackButton';
+import api from '../../server/api';
 
 const AdminPageLogin:React.FC = () => {
   const history = useHistory();
@@ -29,7 +30,15 @@ const AdminPageLogin:React.FC = () => {
         password: Yup.string().min(6, 'Senha invalida, no minino 6 caracteres'),
       });
       await schema.validate({ email, password });
-      history.push('/register-book-321');// registro de livros
+
+      const session = await api.post('session-admin', {
+        emailAdmin: stateEmailAdmin,
+        passwordAdmin: statePasswordAdmin,
+      });
+
+      console.log(session.data.admin.id);
+
+      history.push(`/register-book-321/${session.data.admin.id}`);// registro de livros
     } catch (err) {
       alert('E-mail ou senha incorreto');
     }

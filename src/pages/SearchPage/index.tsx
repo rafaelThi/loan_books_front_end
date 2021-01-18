@@ -154,31 +154,6 @@ const SearchPage: React.FC = () => {
             </Link>
           </Books>
         ))}
-        {/*
-        <Books>
-          <Link to="/book">
-            <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
-            <div>
-              <strong>!CSS Cookbook - Soluções Rápidas para Problemas Comuns com CSS!</strong>
-              <p>
-                Author: !Christopher Schmitt!
-              </p>
-            </div>
-            <FiChevronRight size={20} />
-          </Link>
-        </Books>
-        <Books>
-          <Link to="/book">
-            <img src="https://images-submarino.b2w.io/produtos/01/00/item/7288/8/7288845SZ.jpg" alt="img" />
-            <div>
-              <strong>!CSS Cookbook - Soluções Rápidas para Problemas Comuns com CSS!</strong>
-              <p>
-                Author: !Christopher Schmitt!
-              </p>
-            </div>
-            <FiChevronRight size={20} />
-          </Link>
-        </Books> */}
       </DivMargin>
 
     </>

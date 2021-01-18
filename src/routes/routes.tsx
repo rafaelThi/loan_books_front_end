@@ -25,7 +25,7 @@ const Routes:React.FC = () => (
     <Route path="/search" component={SearchPage} />
     <Route path="/book/:book+" component={BookPage} />
 
-    <Route path="/register-book-321" component={RegisterBook} />
+    <Route path="/register-book-321/:id" component={RegisterBook} />
   </Switch>
 );
 
