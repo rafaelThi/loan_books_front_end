@@ -20,8 +20,6 @@ const LoginPage:React.FC = () => {
       const email = stateEmail;
       const password = statePassword;
 
-      // console.log({ email, password });
-
       const schema = Yup.object().shape({
         email: Yup.string()
           . required('Digite um e-mail válido.')
@@ -35,12 +33,20 @@ const LoginPage:React.FC = () => {
 
       await schema.validate({ email, password });
 
-      await api.post('session-users', {
+      const sessionUser = await api.post('session-users', {
         email: stateEmail,
         password: statePassword,
       });
+      console.log(sessionUser.data.createSession.token);
+      const { token } = sessionUser.data.createSession;
 
-      history.push('/search');
+      const matchToken = await api.get(`/users-token/token/${token}`);
+
+      if (matchToken && sessionUser) {
+        history.push(`/search/${sessionUser.data.createSession.token}`);
+      } else {
+        alert('E-mail ou senha incorreto');
+      }
     } catch (err) {
       alert(`E-mail ou senha incorreto
                 ${err}`);

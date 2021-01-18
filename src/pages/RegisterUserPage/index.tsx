@@ -30,22 +30,20 @@ const RegisterUserPage:React.FC = () => {
             `Digite um e-mail válido
           "ex@ex.com".`,
           ),
-
         password: Yup.string().min(6, 'Senha invalida'),
-
       });
 
       await schema.validate({ name, email, password });
 
       await api.post('/users/create-user', {
         fullName: stateName,
-        email: stateEmail,
-        password: statePassword,
+        email,
+        password,
       });
 
       history.push('/login');
     } catch (err) {
-      alert(`Digite todos os dados.
+      alert(`Talvez tenha esquecido de digitar algo, ou esse email já seja cadastrado
 ${err}`);
     }
   }, [history, stateEmail, stateName, statePassword]);

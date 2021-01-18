@@ -22,10 +22,10 @@ const Routes:React.FC = () => (
     <Route path="/register-new-admin-321" component={RegisterNewAdmin} />
     <Route path="/recover-password" component={RecoverPassword} />
 
-    <Route path="/search" component={SearchPage} />
+    <Route path="/search/:token+" component={SearchPage} />
     <Route path="/book/:book+" component={BookPage} />
 
-    <Route path="/register-book-321/:id" component={RegisterBook} />
+    <Route path="/register-book-321/:id+" component={RegisterBook} />
   </Switch>
 );
 
