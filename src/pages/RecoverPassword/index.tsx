@@ -31,6 +31,8 @@ const RecoverPassword:React.FC = () => {
 
       await schema.validate({ email });
 
+      // api de email
+      alert('Email enviado para o endereço solicitado');
       history.push('/login');
     } catch (err) {
       alert('Digite um e-mail');

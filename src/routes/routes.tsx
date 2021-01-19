@@ -10,6 +10,7 @@ import RecoverPassword from '../pages/RecoverPassword';
 import SearchPage from '../pages/SearchPage';
 import BookPage from '../pages/BookPage';
 import RegisterBook from '../pages/RegisterBook';
+import ResetPassword from '../pages/ResetPassword';
 
 const Routes:React.FC = () => (
   <Switch>
@@ -20,7 +21,10 @@ const Routes:React.FC = () => (
 
     <Route path="/register-user" component={RegisterUserPage} />
     <Route path="/register-new-admin-321" component={RegisterNewAdmin} />
+
     <Route path="/recover-password" component={RecoverPassword} />
+    <Route path="/reset-password" component={ResetPassword} />
+    {/* Depois validar pelo token ou algo assim */}
 
     <Route path="/search/:token+" component={SearchPage} />
     <Route path="/book/:book+" component={BookPage} />
