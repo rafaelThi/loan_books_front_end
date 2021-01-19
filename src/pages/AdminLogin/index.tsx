@@ -36,9 +36,15 @@ const AdminPageLogin:React.FC = () => {
         passwordAdmin: statePasswordAdmin,
       });
 
-      console.log(session.data.admin.id);
+      const { token } = session.data;
 
-      history.push(`/register-book-321/${session.data.admin.id}`);// registro de livros
+      console.log(token);
+
+      const matchToken = await api.get(`/admin-token/token321/${token}`);
+
+      if (matchToken && session) {
+        history.push(`/register-book-321/${session.data.admin.id}`);// registro de livros
+      }
     } catch (err) {
       alert('E-mail ou senha incorreto');
     }

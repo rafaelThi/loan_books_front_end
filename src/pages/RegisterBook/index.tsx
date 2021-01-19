@@ -22,18 +22,18 @@ const RegisterBook:React.FC = () => {
   const [stateName, setStateName] = useState('');
   const [stateLanguage, setStateLanguage] = useState('');
   const [stateImg, setStateImg] = useState('');
-  console.log(params);
+  // console.log(params);
 
   const handleRegisterUser = useCallback(async () => {
     try {
-      await api.post(`/requisition-book/register-book/${params.id}`, {
+      const book = await api.post(`/requisition-book/register-book/${params.id}`, {
         author: stateAuthor,
         name: stateName,
         language: stateLanguage,
         img: stateImg,
       });
 
-      history.push('/');
+      history.push(`/book/${book.data.book.id}`);
     } catch (err) {
       alert(`Digite todos os dados.
 ${err}`);
