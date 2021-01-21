@@ -1,7 +1,8 @@
+/* eslint-disable no-shadow */
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useCallback, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import * as Yup from 'yup';
 import { FiChevronRight } from 'react-icons/fi';
 import BackButton from '../../components/BackButton';
@@ -20,8 +21,14 @@ interface IBook {
   owner_id: string;
 }
 
+interface IUserDTO {
+  token: string;
+}
+
 const SearchPage: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+
+  const { params } = useRouteMatch<IUserDTO>();
 
   const [booksName, setBooksName] = useState<IBook[]>([]);
 
@@ -41,10 +48,13 @@ const SearchPage: React.FC = () => {
       const response = await api.get(`/requisition-book/list-one-book-name/${name}`);
       setBooksName(response.data.findBookName);
       console.log(response.data.findBookName);
+
+      const user = await api.get(`/users-token/token/${params.token}`);
+      console.log(user.data.matchToken.id_user);
     } catch (err) {
       alert('Ops, parece que não achamos o livro que busca, você pode confirmar a escrita ou buscar pelo autor ou linguagem.');
     }
-  }, [titleBook]);
+  }, [params.token, titleBook]);
 
   const handleSearchAuthor = useCallback(async () => {
     try {
@@ -58,10 +68,13 @@ const SearchPage: React.FC = () => {
       const response = await api.get(`/requisition-book/list-one-book-author/${name}`);
       setBooksName(response.data.findBookAuthor);
       console.log(response.data.findBookAuthor);
+
+      const user = await api.get(`/users-token/token/${params.token}`);
+      console.log(user.data.matchToken.id_user);
     } catch (err) {
       alert('Ops, parece que não achamos o autor que busca, você pode confirmar a escrita ou buscar pelo nome do livro ou linguagem.');
     }
-  }, [authorBook]);
+  }, [authorBook, params.token]);
 
   const handleSearchLanguage = useCallback(async () => {
     try {
@@ -75,11 +88,13 @@ const SearchPage: React.FC = () => {
       const response = await api.get(`/requisition-book/list-one-book-language/${name}`);
       setBooksName(response.data.findBookLanguage);
       console.log(response.data.findBookLanguage);
+
+      const user = await api.get(`/users-token/token/${params.token}`);
+      console.log(user.data.matchToken.id_user);
     } catch (err) {
       alert('Ops, parece que não achamos livros da linguagem que busca, você pode confirmar a escrita ou buscar pelo nome do livro ou autor.');
     }
-  }, [languageBook]);
-
+  }, [languageBook, params.token]);
   return (
     <>
       <DivHeader>
@@ -154,6 +169,7 @@ const SearchPage: React.FC = () => {
             </Link>
           </Books>
         ))}
+
       </DivMargin>
 
     </>

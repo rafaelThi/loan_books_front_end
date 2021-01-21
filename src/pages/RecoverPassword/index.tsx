@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
+import api from '../../server/api';
 import {
   Container, Title, H3,
 } from './styles';
@@ -19,7 +20,7 @@ const RecoverPassword:React.FC = () => {
       const email = stateEmail;
 
       // console.log({ email, password });
-
+      alert('Estamos enviado a solicitação, isso pode levar alguns segundos');
       const schema = Yup.object().shape({
         email: Yup.string()
           . required('Digite um e-mail válido.')
@@ -31,7 +32,10 @@ const RecoverPassword:React.FC = () => {
 
       await schema.validate({ email });
 
-      // api de email
+      await api.post('/mail-provider/send-mail-recover-password', {
+        email,
+      });
+
       alert('Email enviado para o endereço solicitado');
       history.push('/login');
     } catch (err) {

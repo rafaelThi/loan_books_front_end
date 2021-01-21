@@ -43,6 +43,7 @@ const BookPage: React.FC = () => {
     try {
       const id_book = booksName?.id;
       const id_admin = booksName?.owner_id;
+      // const id_user = user.id;
 
       await api.post(`/requests/request-book/${id_book}`, {
         id_admin,
