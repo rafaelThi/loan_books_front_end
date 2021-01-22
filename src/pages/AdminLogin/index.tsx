@@ -46,7 +46,7 @@ const AdminPageLogin:React.FC = () => {
         history.push(`/register-book-321/${session.data.admin.id}`);// registro de livros
       }
     } catch (err) {
-      alert('E-mail ou senha incorreto');
+      alert('Dados incorretos, talvez você esteja logando na área errada...');
     }
   }, [stateEmailAdmin, statePasswordAdmin, history]);
 

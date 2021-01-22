@@ -44,7 +44,7 @@ p {
 export const DivV = styled.div`
   display:block;
   align-items: center;
-  justify-content: start;
+  justify-content: center;
   margin-left: 120px;
   margin-right: 50px;
   max-width:700px;
@@ -65,19 +65,35 @@ p{
   font-family: Roboto, sans-serif;
   font-weight:500;
 }
+div{
+display: flex;
 button{
   width: 210px;
-  height: 55px;
+  height: 40px;
   background: #04D361;
   border-radius: 10px;
   border: 0;
   color: #fff;
   font-weight: bold;
-  margin-top:15px;
   transition: background-color 0.2s;
-  margin-left: 0px;
+  margin-left: 10px;
   &:hover {
     background: ${shade(0.2, '#04d361')}
   }
 }
+  input{
+  display:flex;
+  height: 40px;
+  width:450px;
+  padding:0 14px;
+  border: 0;
+  border-radius:10px;
+  color: #3a3a3a;
+  margin-bottom:22px;
+}
+input::placeholder {
+    color:#a8a8b3;
+  }
+}
+
 `;

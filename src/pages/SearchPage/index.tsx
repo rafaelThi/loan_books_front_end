@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -49,13 +52,14 @@ const SearchPage: React.FC = () => {
       setBooksName(response.data.findBookName);
       console.log(response.data.findBookName);
 
-      const user = await api.get(`/users-token/token/${params.token}`);
-      console.log(user.data.matchToken.id_user);
+      const user_id = await api.get(`/users-token/token/${params.token}`);
+      console.log(user_id.data.matchToken.IdUser.id);
+      // setBooksName(user_id.data.matchToken.IdUser.id);
+      // console.log(booksName);
     } catch (err) {
       alert('Ops, parece que não achamos o livro que busca, você pode confirmar a escrita ou buscar pelo autor ou linguagem.');
     }
   }, [params.token, titleBook]);
-
   const handleSearchAuthor = useCallback(async () => {
     try {
       const name = authorBook;
@@ -69,8 +73,8 @@ const SearchPage: React.FC = () => {
       setBooksName(response.data.findBookAuthor);
       console.log(response.data.findBookAuthor);
 
-      const user = await api.get(`/users-token/token/${params.token}`);
-      console.log(user.data.matchToken.id_user);
+      const user_id = await api.get(`/users-token/token/${params.token}`);
+      console.log(user_id.data.matchToken.id_user);
     } catch (err) {
       alert('Ops, parece que não achamos o autor que busca, você pode confirmar a escrita ou buscar pelo nome do livro ou linguagem.');
     }
@@ -89,8 +93,8 @@ const SearchPage: React.FC = () => {
       setBooksName(response.data.findBookLanguage);
       console.log(response.data.findBookLanguage);
 
-      const user = await api.get(`/users-token/token/${params.token}`);
-      console.log(user.data.matchToken.id_user);
+      const user_id = await api.get(`/users-token/token/${params.token}`);
+      console.log(user_id.data.matchToken.id_user);
     } catch (err) {
       alert('Ops, parece que não achamos livros da linguagem que busca, você pode confirmar a escrita ou buscar pelo nome do livro ou autor.');
     }

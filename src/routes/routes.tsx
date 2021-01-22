@@ -26,7 +26,7 @@ const Routes:React.FC = () => (
     <Route path="/reset-password" component={ResetPassword} />
     {/* Depois validar pelo token ou algo assim */}
 
-    <Route path="/search/:token+" component={SearchPage} />
+    <Route path="/search/:token" component={SearchPage} />
     <Route path="/book/:book" component={BookPage} />
 
     <Route path="/register-book-321/:id+" component={RegisterBook} />
