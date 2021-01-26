@@ -78,9 +78,16 @@ const BookPage: React.FC = () => {
           name_book: booksName?.name,
           id: request.data.requestBook.id,
         });
+        const sendMailUser = await api.post('/mail-provider/send-mail-request-book', {
+          email: user.data.user.email,
+          name_user: user.data.user.fullName,
+          name_book: booksName?.name,
+          id: request.data.requestBook.id,
+        });
         console.log(sendMail, 'sendMail');
+        console.log(sendMailUser, 'sendMailUser');
 
-        if (sendMail) {
+        if (sendMail && sendMailUser) {
           alert(`Requisição feita com sucesso!!
 Um email foi mandado ao dono do livro`);
         }
@@ -89,7 +96,7 @@ Um email foi mandado ao dono do livro`);
       alert(`Email incorreto :(
       erro:${error}`);
     }
-  }, [booksName?.id, booksName?.name, booksName?.owner_id, stateEmail]);
+  }, [bookOwner?.emailAdmin, booksName?.id, booksName?.name, booksName?.owner_id, stateEmail]);
 
   return (
     <>
