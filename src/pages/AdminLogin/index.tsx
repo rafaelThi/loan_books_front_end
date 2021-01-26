@@ -38,8 +38,6 @@ const AdminPageLogin:React.FC = () => {
 
       const { token } = session.data;
 
-      console.log(token);
-
       const matchToken = await api.get(`/admin-token/token321/${token}`);
 
       if (matchToken && session) {

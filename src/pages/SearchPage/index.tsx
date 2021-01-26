@@ -4,14 +4,16 @@
 /* eslint-disable no-shadow */
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import React, { useCallback, useRef, useState } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import * as Yup from 'yup';
 import { FiChevronRight } from 'react-icons/fi';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import {
-  Title, H3, Container, DivHeader, Span, Books, DivMargin,
+  Title, H3, Container, DivHeader, Span, Books, DivMargin, Div, TitleProfile,
 } from './styles';
 import api from '../../server/api';
 
@@ -28,6 +30,9 @@ interface IUserDTO {
   token: string;
 }
 
+interface IUser{
+  fullName: string;
+}
 const SearchPage: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
@@ -35,9 +40,13 @@ const SearchPage: React.FC = () => {
 
   const [booksName, setBooksName] = useState<IBook[]>([]);
 
+  const [idUser, setIdUser] = useState('');
+
   const [titleBook, setTitleBook] = useState('');
   const [authorBook, setAuthorBook] = useState('');
   const [languageBook, setLanguageBook] = useState('');
+
+  const [user, setUser] = useState<IUser>();
 
   const handleSearchTitle = useCallback(async () => {
     try {
@@ -99,11 +108,34 @@ const SearchPage: React.FC = () => {
       alert('Ops, parece que não achamos livros da linguagem que busca, você pode confirmar a escrita ou buscar pelo nome do livro ou autor.');
     }
   }, [languageBook, params.token]);
+
+  useEffect(() => {
+    api.get(`/users-token/token/${params.token}`).then((response) => {
+      setIdUser(response.data.matchToken.id_user);
+      console.log(response.data.matchToken.id_user);
+    });
+  }, []);
+  useEffect(() => {
+    api.get(`/users/list-user-id/${idUser}`).then((response) => {
+      setUser(response.data.user);
+      console.log(idUser);
+    });
+  }, [setIdUser, params]);
   return (
     <>
       <DivHeader>
         <Logo />
-        <BackButton />
+        <Div>
+          <a href={`/profile-user/${idUser}`}>
+            <TitleProfile>
+              Seja bem vindo
+              {' '}
+              <br />
+              {' '}
+              {user?.fullName}
+            </TitleProfile>
+          </a>
+        </Div>
       </DivHeader>
       <Container>
         <Title>

@@ -11,15 +11,17 @@ import SearchPage from '../pages/SearchPage';
 import BookPage from '../pages/BookPage';
 import RegisterBook from '../pages/RegisterBook';
 import ResetPassword from '../pages/ResetPassword';
+import PageProfile from '../pages/PageProfile';
 
 const Routes:React.FC = () => (
   <Switch>
     <Route path="/" exact component={HomePage} />
 
     <Route path="/login" component={LoginPage} />
-    <Route path="/admin-login" component={AdminLogin} />
-
     <Route path="/register-user" component={RegisterUserPage} />
+    <Route path="/profile-user/:id" component={PageProfile} />
+
+    <Route path="/admin-login" component={AdminLogin} />
     <Route path="/register-new-admin-321" component={RegisterNewAdmin} />
 
     <Route path="/recover-password" component={RecoverPassword} />

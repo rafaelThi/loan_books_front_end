@@ -1,6 +1,31 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
+export const TitleProfile = styled.h3`
+font-size:12px;
+font-family: Roboto, sans-serif;
+text-decoration: none;
+color: #fff;
+text-align: center;
+`;
+
+export const Div = styled.div`
+display:flex;
+align-items: center;
+justify-content:start;
+margin: 28px;
+margin-left: 35px;
+
+a {
+  text-decoration: none;
+  display:flex;
+align-items: center;
+justify-content:start;
+
+}
+
+`;
+
 export const DivMargin = styled.div`
 margin-bottom: 50px;
 `;
