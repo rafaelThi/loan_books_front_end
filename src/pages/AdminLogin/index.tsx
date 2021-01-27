@@ -18,8 +18,6 @@ const AdminPageLogin:React.FC = () => {
       const email = stateEmailAdmin;
       const password = statePasswordAdmin;
 
-      // console.log({ email, password });
-
       const schema = Yup.object().shape({
         email: Yup.string()
           . required('Digite um e-mail válido.')
@@ -41,7 +39,7 @@ const AdminPageLogin:React.FC = () => {
       const matchToken = await api.get(`/admin-token/token321/${token}`);
 
       if (matchToken && session) {
-        history.push(`/register-book-321/${session.data.admin.id}`);// registro de livros
+        history.push(`/choice-page/${session.data.admin.id}`);// registro de livros
       }
     } catch (err) {
       alert('Dados incorretos, talvez você esteja logando na área errada...');
