@@ -11,7 +11,8 @@ import SearchPage from '../pages/SearchPage';
 import BookPage from '../pages/BookPage';
 import RegisterBook from '../pages/RegisterBook';
 import ResetPassword from '../pages/ResetPassword';
-import PageProfile from '../pages/PageProfile';
+import PageProfile from '../pages/PageProfileUser';
+import PageProfileAdmin from '../pages/PageProfileAdmin';
 
 const Routes:React.FC = () => (
   <Switch>
@@ -23,6 +24,7 @@ const Routes:React.FC = () => (
 
     <Route path="/admin-login" component={AdminLogin} />
     <Route path="/register-new-admin-321" component={RegisterNewAdmin} />
+    <Route path="/profile-admin/:id" component={PageProfileAdmin} />
 
     <Route path="/recover-password" component={RecoverPassword} />
     <Route path="/reset-password" component={ResetPassword} />

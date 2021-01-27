@@ -31,7 +31,9 @@ interface IUserDTO {
 }
 
 interface IUser{
-  fullName: string;
+  user:{
+    fullName: string;
+  }
 }
 const SearchPage: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -113,14 +115,12 @@ const SearchPage: React.FC = () => {
     api.get(`/users-token/token/${params.token}`).then((response) => {
       setIdUser(response.data.matchToken.id_user);
       console.log(response.data.matchToken.id_user);
+      api.get(`/users/list-user-id/${response.data.matchToken.id_user}`).then((response) => {
+        setUser(response.data);
+      });
     });
   }, []);
-  useEffect(() => {
-    api.get(`/users/list-user-id/${idUser}`).then((response) => {
-      setUser(response.data.user);
-      console.log(idUser);
-    });
-  }, [setIdUser, params]);
+
   return (
     <>
       <DivHeader>
@@ -132,7 +132,7 @@ const SearchPage: React.FC = () => {
               {' '}
               <br />
               {' '}
-              {user?.fullName}
+              {user?.user.fullName}
             </TitleProfile>
           </a>
         </Div>

@@ -8,14 +8,24 @@ display: flex;
 align-items: center;
 justify-content: center;
 color:#ffffff;
-text-align: center;
-margin-top: -20px;
+margin-bottom: -8px;
+
 `;
 
-export const DivBack = styled.div`
-margin-left: 20px;
-margin-top: -20px;
-margin-bottom: 15px;
+export const H3 = styled.h3`
+font-family: Roboto, sans-serif;
+font-weight: 400;
+text-decoration: none;
+color:#ffffff;
+
+
+a {
+  color: #000;
+  font-style:italic;
+  color:#ffffff;
+
+}
+
 `;
 
 export const Container = styled.div`
@@ -34,7 +44,7 @@ input{
   width:400px;
   padding:0 14px;
   border: 0;
-  border-radius:5px;
+  border-radius:15px;
   color: #3a3a3a;
   margin-bottom:25px;
 }
@@ -55,29 +65,24 @@ button{
   }
 }
 
-div {
-  input {
-    margin: 12px;
-  }
-
-p {
-  font-size: 10px;
-  font-family: Poppins, sans-serif;
-  display:flex;
-  text-align: start;
-  justify-content: start;
-  align-items: center;
-  margin-left: 12px;
-  margin-bottom: 12px;
-}
-}
-
 span {
   display:flex;
-  text-align: start;
-  justify-content: start;
+  font-size: 16px;
+  margin:12px;
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  a{
+    color:#ffffff;
+  }
+}
+
+p {
   align-items: center;
-  margin-left: 12px;
-  margin-bottom: 4px;
+  text-align: start;
+  justify-content:start;
+  font-size: 18px;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  margin-top: 50px;
 }
 `;

@@ -6,10 +6,12 @@ import { A } from './styles';
 const BackButton: React.FC = () => {
   const history = useHistory();
   return (
-    <A onClick={history.goBack}>
-      <ArrowBackIosIcon />
-      Voltar
-    </A>
+    <div>
+      <A onClick={history.goBack}>
+        <ArrowBackIosIcon />
+        Voltar
+      </A>
+    </div>
   );
 };
 
