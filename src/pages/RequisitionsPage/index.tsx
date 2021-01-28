@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
+import * as Yup from 'yup';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import api from '../../server/api';
@@ -18,23 +19,69 @@ interface IRequisition {
   id_admin: string;
   IdUser: {
     fullName: string;
+    email: string;
   }
   IdBook: {
     name: string;
   }
+  IdAdmin:{
+    fullNameAdmin: string;
+    emailAdmin: string;
+  }
 }
-
-const DevolutionPage:React.FC = () => {
+const RequisitionsPage:React.FC = () => {
   const { params } = useRouteMatch<IParamsDTO>();
   const id_admin = params.id;
 
   const [requistitions, setRequisitions] = useState<IRequisition[]>([]);
+
   useEffect(() => {
     const requisitions = api.get(`/requests/requests-books/${id_admin}`);
     requisitions.then((requisition) => {
       setRequisitions(requisition.data);
     });
   }, [id_admin]);
+
+  const [textArea, setTextArea] = useState('');
+
+  //   const handleAccept = useCallback(async () => {
+  //     try {
+  //       const textAccept = textArea;
+  //       const schema = Yup.object().shape({
+  //         textAccept: Yup.string().
+  // required('Uma mesagem deve ser escrita :/')
+  // .min(6, 'Digite algo maior que 6 caracteres :)'),
+  //       });
+  //       await schema.validate({ textAccept });
+  // // nameBook, nameUser, nameAdmin, emailUser, emailAdmin, textAccept,
+
+  //       const sendMail = api.post('/mail-provider/send-mail-request-return', {
+  //         namebook: requisi.,
+  //         nameUser: ,
+  //         nameAdmin: ,
+  //         emailUser: ,
+  //         emailAdmin: ,
+  //         textAccept,
+  //       })
+
+  //     } catch (err) {
+  //       alert(err);
+  //     }
+  //   }, [textArea]);
+
+  // const handleRefusal = useCallback(async () => {
+  //   try {
+  //     const textRefusal = textArea;
+  //     const schema = Yup.object().shape({
+  //       textRefusal: Yup.string()
+  // .required('Escreva algo para dizer o motivo da recusa.')
+  // .min(3, 'Digite algo com pelo menos 3 caracteres :)'),
+  //     });
+  //     await schema.validate({ textRefusal });
+  //   } catch (err) {
+  //     alert(err);
+  //   }
+  // }, [textArea]);
 
   return (
     <>
@@ -43,7 +90,7 @@ const DevolutionPage:React.FC = () => {
         <BackButton />
       </DivBack>
       {requistitions.map((requisi) => (
-        <Container>
+        <Container key={requisi.id}>
           <Books>
             <Div5>
               <Div3>
@@ -66,7 +113,11 @@ const DevolutionPage:React.FC = () => {
                   <strong>
                     Como vai ser?*
                   </strong>
-                  <textarea />
+                  <textarea
+                    value={textArea}
+                    onChange={(e) => setTextArea(e.target.value)}
+                    required
+                  />
                   <br />
                   <span>
                     Caso a resposta seja SIM, diga como será a entrega e o tempo de emprestimo.
@@ -78,9 +129,70 @@ const DevolutionPage:React.FC = () => {
                 </Div2>
               </Div3>
               <Div4>
-                <button onClick={() => { console.log('Aceite'); }} type="button">Aceitar</button>
+                <button
+                  onClick={async () => {
+                    try {
+                      const textAccept = textArea;
+                      const schema = Yup.object().shape({
+                        textAccept: Yup.string().required('Uma mesagem deve ser escrita :/').min(6, 'Digite algo maior que 6 caracteres :)'),
+                      });
+                      await schema.validate({ textAccept });
+
+                      alert('o Aceite esta sendo proessado, por favor aguarde alguns segundos ate a sua confirmação!');
+
+                      const sendMail = await api.post('/mail-provider/send-mail-request-return-accept', {
+                        nameBook: requisi.IdBook.name,
+                        nameUser: requisi.IdUser.fullName,
+                        nameAdmin: requisi.IdAdmin.fullNameAdmin,
+                        emailUser: requisi.IdUser.email,
+                        emailAdmin: requisi.IdAdmin.emailAdmin,
+                        textAccept,
+                      });
+                      if (!sendMail) {
+                        alert('Parece que algo deu errado, tente novamente');
+                      }
+                      alert('parece que tudo correu bem, um email foi encaminhado para você e o usuario');
+                    } catch (err) {
+                      alert(err);
+                    }
+                  }}
+                  type="button"
+                >
+                  Aceitar
+
+                </button>
                 <div>
-                  <button onClick={() => { console.log('Recusa'); }} type="button">Recusar</button>
+                  <button
+                    onClick={async () => {
+                      try {
+                        const textRefuse = textArea;
+                        const schema = Yup.object().shape({
+                          textRefuse: Yup.string().required('Escreva algo para dizer o motivo da recusa.').min(3, 'Digite algo com pelo menos 3 caracteres :)'),
+                        });
+                        await schema.validate({ textRefuse });
+
+                        alert('A Recusa esta sendo proessado, por favor aguarde alguns segundos ate a sua confirmação!');
+
+                        const sendMail = await api.post('/mail-provider/send-mail-request-return-refuse', {
+                          nameBook: requisi.IdBook.name,
+                          nameUser: requisi.IdUser.fullName,
+                          emailUser: requisi.IdUser.email,
+                          emailAdmin: requisi.IdAdmin.emailAdmin,
+                          textRefuse,
+                        });
+                        if (!sendMail) {
+                          alert('Parece que algo deu errado, tente novamente');
+                        }
+                        alert('Parece que tudo correu bem, um email foi encaminhado para você e o usuario');
+                      } catch (err) {
+                        alert(err);
+                      }
+                    }}
+                    type="button"
+                  >
+                    Recusar
+
+                  </button>
                 </div>
               </Div4>
             </Div5>
@@ -90,4 +202,4 @@ const DevolutionPage:React.FC = () => {
     </>
   );
 };
-export default DevolutionPage;
+export default RequisitionsPage;
