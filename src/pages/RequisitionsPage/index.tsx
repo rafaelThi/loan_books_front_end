@@ -43,46 +43,6 @@ const RequisitionsPage:React.FC = () => {
   }, [id_admin]);
 
   const [textArea, setTextArea] = useState('');
-
-  //   const handleAccept = useCallback(async () => {
-  //     try {
-  //       const textAccept = textArea;
-  //       const schema = Yup.object().shape({
-  //         textAccept: Yup.string().
-  // required('Uma mesagem deve ser escrita :/')
-  // .min(6, 'Digite algo maior que 6 caracteres :)'),
-  //       });
-  //       await schema.validate({ textAccept });
-  // // nameBook, nameUser, nameAdmin, emailUser, emailAdmin, textAccept,
-
-  //       const sendMail = api.post('/mail-provider/send-mail-request-return', {
-  //         namebook: requisi.,
-  //         nameUser: ,
-  //         nameAdmin: ,
-  //         emailUser: ,
-  //         emailAdmin: ,
-  //         textAccept,
-  //       })
-
-  //     } catch (err) {
-  //       alert(err);
-  //     }
-  //   }, [textArea]);
-
-  // const handleRefusal = useCallback(async () => {
-  //   try {
-  //     const textRefusal = textArea;
-  //     const schema = Yup.object().shape({
-  //       textRefusal: Yup.string()
-  // .required('Escreva algo para dizer o motivo da recusa.')
-  // .min(3, 'Digite algo com pelo menos 3 caracteres :)'),
-  //     });
-  //     await schema.validate({ textRefusal });
-  //   } catch (err) {
-  //     alert(err);
-  //   }
-  // }, [textArea]);
-
   return (
     <>
       <Logo />
@@ -184,6 +144,8 @@ const RequisitionsPage:React.FC = () => {
                           alert('Parece que algo deu errado, tente novamente');
                         }
                         alert('Parece que tudo correu bem, um email foi encaminhado para você e o usuario');
+                        await api.delete(`/requests/delete-request/${requisi.id}`);
+                        document.location.reload(true);
                       } catch (err) {
                         alert(err);
                       }
