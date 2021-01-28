@@ -18,13 +18,16 @@ interface IRequisition {
   id_user: string;
   id_admin: string;
   IdUser: {
+    id:string;
     fullName: string;
     email: string;
   }
   IdBook: {
+    id: string;
     name: string;
   }
   IdAdmin:{
+    id:string;
     fullNameAdmin: string;
     emailAdmin: string;
   }
@@ -112,6 +115,14 @@ const RequisitionsPage:React.FC = () => {
                         alert('Parece que algo deu errado, tente novamente');
                       }
                       alert('parece que tudo correu bem, um email foi encaminhado para você e o usuario');
+                      await api.post('/requests/aceept',
+                        {
+                          id_request: requisi.id,
+                          id_book: requisi.IdBook.id,
+                          id_user: requisi.IdUser.id,
+                          id_admin: requisi.IdAdmin.id,
+                        });
+                      await api.delete(`/requests/delete-request/${requisi.id}`);
                       document.location.reload(true);
                     } catch (err) {
                       alert(err);
@@ -120,8 +131,8 @@ const RequisitionsPage:React.FC = () => {
                   type="button"
                 >
                   Aceitar
-
                 </button>
+
                 <div>
                   <button
                     onClick={async () => {
