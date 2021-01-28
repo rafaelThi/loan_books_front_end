@@ -112,6 +112,7 @@ const RequisitionsPage:React.FC = () => {
                         alert('Parece que algo deu errado, tente novamente');
                       }
                       alert('parece que tudo correu bem, um email foi encaminhado para você e o usuario');
+                      document.location.reload(true);
                     } catch (err) {
                       alert(err);
                     }
