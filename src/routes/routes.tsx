@@ -16,6 +16,7 @@ import PageProfileAdmin from '../pages/PageProfileAdmin';
 import PageChoiceAdmin from '../pages/PageChoiceAdmin';
 import DevolutionPage from '../pages/DevolutionPage';
 import RequisitionsPage from '../pages/RequisitionsPage';
+import RequestAccept from '../pages/RequestAccept';
 
 const Routes:React.FC = () => (
   <Switch>
@@ -31,6 +32,7 @@ const Routes:React.FC = () => (
     <Route path="/register-new-admin-321" component={RegisterNewAdmin} />
     <Route path="/devolution-book/:id" component={DevolutionPage} />
     <Route path="/requisitions-book/:id" component={RequisitionsPage} />
+    <Route path="/request-accept/:id" component={RequestAccept} />
 
     <Route path="/recover-password" component={RecoverPassword} />
     <Route path="/reset-password" component={ResetPassword} />

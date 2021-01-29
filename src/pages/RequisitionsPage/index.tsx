@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import * as Yup from 'yup';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import api from '../../server/api';
+import { Title } from '../HomePage/styles';
 import { DivBack } from '../RegisterBook/styles';
 import {
-  Books, Container, Div1, Div2, Div3, Div4, Div5,
+  Books, Container, Div1, Div2, Div3, Div4, Div5, Button,
 } from './styles';
 
 interface IParamsDTO {
@@ -36,6 +37,8 @@ const RequisitionsPage:React.FC = () => {
   const { params } = useRouteMatch<IParamsDTO>();
   const id_admin = params.id;
 
+  const history = useHistory();
+
   const [requistitions, setRequisitions] = useState<IRequisition[]>([]);
 
   useEffect(() => {
@@ -52,6 +55,13 @@ const RequisitionsPage:React.FC = () => {
       <DivBack>
         <BackButton />
       </DivBack>
+      <Title>Essas são todas as suas requisições:</Title>
+      <Button
+        onClick={() => { history.push(`/request-accept/${id_admin}`); }}
+        type="button"
+      >
+        Ir para as aceitas
+      </Button>
       {requistitions.map((requisi) => (
         <Container key={requisi.id}>
           <Books>
@@ -121,6 +131,7 @@ const RequisitionsPage:React.FC = () => {
                           id_book: requisi.IdBook.id,
                           id_user: requisi.IdUser.id,
                           id_admin: requisi.IdAdmin.id,
+                          message: textAccept,
                         });
                       await api.delete(`/requests/delete-request/${requisi.id}`);
                       document.location.reload(true);

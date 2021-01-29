@@ -1,23 +1,6 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
-export const Button = styled.button`
-font-size: 15px;
-width: 200px;
-height: 45px;
-background: #04D361;
-border-radius: 10px;
-border: 0;
-color: #fff;
-font-weight: bold;
-margin-left: 37px;
-margin-top:-10px;
-transition: background-color 0.2s;
-&:hover {
-  background: ${shade(0.2, '#04d361')}
-}
-`;
-
 export const Container = styled.div`
 color:#3D3D4D;
 display:flex;
@@ -26,21 +9,6 @@ align-items: center;
 text-align: center;
 color:#ffffff;
 
-button{
-font-size: 15px;
-width: 250px;
-height: 85px;
-background: #04D361;
-border-radius: 10px;
-border: 0;
-color: #fff;
-font-weight: bold;
-margin: 15px;
-transition: background-color 0.2s;
-&:hover {
-  background: ${shade(0.2, '#04d361')}
-}
-}
 `;
 
 export const Books = styled.div`
@@ -49,7 +17,7 @@ margin-right: 5;
 color:#3D3D4D;
 
 margin-top:25px;
-max-width:700px;
+max-width:850px;
 background: #fff;
 border-radius:25px;
 padding-inline: 20px;
@@ -61,7 +29,7 @@ padding-block: 10px;
       font-size: 18px;
       font-family: Roboto, sans-serif;
      font-weight:500;
-     margin-right:25px;
+     margin-right:10px;
      margin-top:25px;
      margin-bottom:25px;
 
@@ -127,15 +95,44 @@ justify-content: start;
 export const Div4 = styled.div`
 display:block;
 align-items: center;
-justify-content: start;
-margin-left: 70px;
+justify-content: center;
+text-align: center;
+
+/* margin-left: 70px; */
 div{
-button{
-background: #D30404;
+display: block;
+align-items: center;
+justify-content:space-between;
+}
+input{
+  /* display:block; */
+  height: 35px;
+  width:140px;
+  padding:0 14px;
+  border: 0;
+  border-radius:5px;
+  color: #3a3a3a;
+  margin-bottom:15px;
+  margin-left:-22px;
+  background: #D8D8D8;
+
+}
+input::placeholder {
+    color:#a8a8b3;
+  }
+  button{
+font-size: 15px;
+width: 140px;
+height: 35px;
+background: #04D361;
+border-radius: 10px;
+border: 0;
+color: #fff;
+font-weight: bold;
+margin: 5px;
 transition: background-color 0.2s;
 &:hover {
-  background: ${shade(0.2, '#D30404')}
-}
+  background: ${shade(0.2, '#04d361')}
 }
 }
 `;
