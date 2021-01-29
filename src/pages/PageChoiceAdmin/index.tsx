@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
-import { DivBack } from '../RegisterBook/styles';
+import api from '../../server/api';
+import { Div, DivHeader, TitleProfile } from '../SearchPage/styles';
 import { Container } from './styles';
 
 interface IParamsDTO {
   id: string;
 }
 
+interface IAdmin {
+  idOwner: {
+    id:string;
+    fullNameAdmin: string;
+    emailAdmin: string;
+    passwordAdmin: string;
+  }
+}
+
 const PageChoiceAdmin: React.FC = () => {
   const { params } = useRouteMatch<IParamsDTO>();
+
+  const [adminId, setIdAdmin] = useState<IAdmin>();
 
   const history = useHistory();
 
@@ -29,12 +40,29 @@ const PageChoiceAdmin: React.FC = () => {
     history.push(`/devolution-book/${params.id}`);
   };
 
+  useEffect(() => {
+    api.get(`/users-book-owners/list-owner/${params.id}`).then((response) => {
+      setIdAdmin(response.data);
+      // console.log(response.data);
+    });
+  });
+
   return (
     <>
-      <Logo />
-      <DivBack>
-        <BackButton />
-      </DivBack>
+      <DivHeader>
+        <Logo />
+        <Div>
+          <a href={`/profile-admin/${adminId?.idOwner.id}`}>
+            <TitleProfile>
+              Seja bem vindo
+              {' '}
+              <br />
+              {' '}
+              {adminId?.idOwner.fullNameAdmin != null ? adminId?.idOwner.fullNameAdmin : 'Carregando...'}
+            </TitleProfile>
+          </a>
+        </Div>
+      </DivHeader>
       <Container>
         <button type="button" onClick={handleRegister}>Ir para a página para registrar um novo livro</button>
         <button type="submit" onClick={handleRequisitions}>Ir para a página de aceite ou recusa de requisições</button>

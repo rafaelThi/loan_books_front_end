@@ -1,17 +1,57 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import { DivBack } from '../RegisterBook/styles';
 import { Container, H3, Title } from './styles';
+import { Div, DivHeader, TitleProfile } from '../SearchPage/styles';
+import api from '../../server/api';
+
+interface IParamsDTO {
+  id: string;
+}
+
+interface IAdmin {
+  idOwner: {
+    id:string;
+    fullNameAdmin: string;
+    emailAdmin: string;
+    passwordAdmin: string;
+  }
+}
 
 const DevolutionPage:React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
+  const { params } = useRouteMatch<IParamsDTO>();
+
+  const [adminId, setIdAdmin] = useState<IAdmin>();
+
+  useEffect(() => {
+    api.get(`/users-book-owners/list-owner/${params.id}`).then((response) => {
+      setIdAdmin(response.data);
+      // console.log(response.data);
+    });
+  });
+
   return (
     <>
-      <Logo />
+      <DivHeader>
+        <Logo />
+        <Div>
+          <a href={`/profile-admin/${adminId?.idOwner.id}`}>
+            <TitleProfile>
+              Seja bem vindo
+              {' '}
+              <br />
+              {' '}
+              {adminId?.idOwner.fullNameAdmin != null ? adminId?.idOwner.fullNameAdmin : 'Carregando...'}
+            </TitleProfile>
+          </a>
+        </Div>
+      </DivHeader>
       <DivBack>
         <BackButton />
       </DivBack>

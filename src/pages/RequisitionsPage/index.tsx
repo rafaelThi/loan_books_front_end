@@ -9,10 +9,21 @@ import { DivBack } from '../RegisterBook/styles';
 import {
   Books, Container, Div1, Div2, Div3, Div4, Div5, Button, DivButton,
 } from './styles';
+import { Div, DivHeader, TitleProfile } from '../SearchPage/styles';
 
 interface IParamsDTO {
   id: string;
 }
+
+interface IAdmin {
+  idOwner: {
+    id:string;
+    fullNameAdmin: string;
+    emailAdmin: string;
+    passwordAdmin: string;
+  }
+}
+
 interface IRequisition {
   id: string;
   id_book: string;
@@ -37,6 +48,8 @@ const RequisitionsPage:React.FC = () => {
   const { params } = useRouteMatch<IParamsDTO>();
   const id_admin = params.id;
 
+  const [adminId, setIdAdmin] = useState<IAdmin>();
+
   const history = useHistory();
 
   const [requistitions, setRequisitions] = useState<IRequisition[]>([]);
@@ -47,11 +60,30 @@ const RequisitionsPage:React.FC = () => {
       setRequisitions(requisition.data);
     });
   }, [id_admin]);
+  useEffect(() => {
+    api.get(`/users-book-owners/list-owner/${params.id}`).then((response) => {
+      setIdAdmin(response.data);
+      // console.log(response.data);
+    });
+  });
 
   const [textArea, setTextArea] = useState('');
   return (
     <>
-      <Logo />
+      <DivHeader>
+        <Logo />
+        <Div>
+          <a href={`/profile-admin/${adminId?.idOwner.id}`}>
+            <TitleProfile>
+              Seja bem vindo
+              {' '}
+              <br />
+              {' '}
+              {adminId?.idOwner.fullNameAdmin != null ? adminId?.idOwner.fullNameAdmin : 'Carregando...'}
+            </TitleProfile>
+          </a>
+        </Div>
+      </DivHeader>
       <DivBack>
         <BackButton />
       </DivBack>

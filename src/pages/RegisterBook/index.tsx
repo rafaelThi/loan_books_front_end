@@ -72,7 +72,7 @@ ${err}`);
               {' '}
               <br />
               {' '}
-              {adminId?.idOwner.fullNameAdmin}
+              {adminId?.idOwner.fullNameAdmin != null ? adminId?.idOwner.fullNameAdmin : 'Carregando...'}
             </TitleProfile>
           </a>
         </Div>

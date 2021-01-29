@@ -6,6 +6,7 @@ import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import api from '../../server/api';
 import { DivBack } from '../RegisterBook/styles';
+import { Div, DivHeader, TitleProfile } from '../SearchPage/styles';
 import {
   Books, Container, Div1, Div2, Div3, Div4, Div5, ImgOk, ImgX,
 } from './styles';
@@ -14,6 +15,15 @@ import OK from '../../assets/OK.jpg';
 
 interface IParamsDTO {
   id: string;
+}
+
+interface IAdmin {
+  idOwner: {
+    id:string;
+    fullNameAdmin: string;
+    emailAdmin: string;
+    passwordAdmin: string;
+  }
 }
 interface IRequisition {
   id: string;
@@ -44,6 +54,8 @@ const RequestAccept:React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
 
+  const [adminId, setIdAdmin] = useState<IAdmin>();
+
   const [requistitions, setRequisitions] = useState<IRequisition[]>([]);
 
   const [delivered, setDelivered] = useState('');
@@ -55,9 +67,29 @@ const RequestAccept:React.FC = () => {
     });
   }, [id_admin]);
 
+  useEffect(() => {
+    api.get(`/users-book-owners/list-owner/${params.id}`).then((response) => {
+      setIdAdmin(response.data);
+      // console.log(response.data);
+    });
+  });
+
   return (
     <>
-      <Logo />
+      <DivHeader>
+        <Logo />
+        <Div>
+          <a href={`/profile-admin/${adminId?.idOwner.id}`}>
+            <TitleProfile>
+              Seja bem vindo
+              {' '}
+              <br />
+              {' '}
+              {adminId?.idOwner.fullNameAdmin != null ? adminId?.idOwner.fullNameAdmin : 'Carregando...'}
+            </TitleProfile>
+          </a>
+        </Div>
+      </DivHeader>
       <DivBack>
         <BackButton />
       </DivBack>
