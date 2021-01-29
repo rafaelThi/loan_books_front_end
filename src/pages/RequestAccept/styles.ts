@@ -1,6 +1,21 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
+export const ImgOk = styled.img`
+height:35px;
+width:35px;
+margin-bottom:10px;
+margin-top:-10px;
+`;
+
+export const ImgX = styled.img`
+height:45px;
+width:45px;
+border-radius:50%;
+margin-bottom:10px;
+margin-top:-10px;
+`;
+
 export const Container = styled.div`
 color:#3D3D4D;
 display:flex;
@@ -8,6 +23,7 @@ justify-content: center;
 align-items: center;
 text-align: center;
 color:#ffffff;
+margin-bottom:20px;
 
 `;
 

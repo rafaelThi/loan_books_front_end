@@ -7,8 +7,10 @@ import Logo from '../../components/Logo';
 import api from '../../server/api';
 import { DivBack } from '../RegisterBook/styles';
 import {
-  Books, Container, Div1, Div2, Div3, Div4, Div5,
+  Books, Container, Div1, Div2, Div3, Div4, Div5, ImgOk, ImgX,
 } from './styles';
+import X from '../../assets/X.jpg';
+import OK from '../../assets/OK.jpg';
 
 interface IParamsDTO {
   id: string;
@@ -65,6 +67,8 @@ const RequestAccept:React.FC = () => {
             <Div5>
               <Div3>
                 <Div1>
+                  {requisi.delivered != null ? <ImgOk src={OK} alt="Ok" /> : <ImgX src={X} alt="x" /> }
+                  <br />
                   <strong>
                     Requisição feita por:
                     {' '}
@@ -107,7 +111,15 @@ const RequestAccept:React.FC = () => {
                 <strong>
                   Quando será a entrega?
                 </strong>
-                <Form ref={formRef} onSubmit={() => { console.log(delivered); }}>
+                <Form
+                  ref={formRef}
+                  onSubmit={async () => {
+                    await api.put(`/requests/request-delivered/${requisi.id}`, {
+                      delivered,
+                    });
+                    document.location.reload(true);
+                  }}
+                >
                   <input
                     value={delivered}
                     onChange={(e) => setDelivered(e.target.value)}
