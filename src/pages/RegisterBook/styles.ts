@@ -10,6 +10,13 @@ justify-content: center;
 color:#ffffff;
 text-align: center;
 margin-top: -20px;
+a {
+  text-decoration: none;
+  display:flex;
+  align-items: center;
+  justify-content:start;
+
+}
 `;
 
 export const DivBack = styled.div`

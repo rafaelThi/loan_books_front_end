@@ -10,7 +10,6 @@ import React, {
 import { Link, useRouteMatch } from 'react-router-dom';
 import * as Yup from 'yup';
 import { FiChevronRight } from 'react-icons/fi';
-import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import {
   Title, H3, Container, DivHeader, Span, Books, DivMargin, Div, TitleProfile,
@@ -126,15 +125,27 @@ const SearchPage: React.FC = () => {
       <DivHeader>
         <Logo />
         <Div>
-          <a href={`/profile-user/${idUser}`}>
-            <TitleProfile>
-              Seja bem vindo
-              {' '}
-              <br />
-              {' '}
-              {user?.user.fullName}
-            </TitleProfile>
-          </a>
+          <div>
+            <a href={`/profile-user/${idUser}`}>
+              <TitleProfile>
+                Seja bem vindo
+                {' '}
+                <br />
+                {' '}
+                {user?.user.fullName}
+              </TitleProfile>
+            </a>
+            <a
+              onClick={async () => {
+                const user = await api.get(`/users-token/token/${params.token}`);
+                await api.delete(`/users-token/delete-token/${user.data.matchToken.id_user}`);
+              }}
+              href="/"
+            >
+              Sair
+
+            </a>
+          </div>
         </Div>
       </DivHeader>
       <Container>

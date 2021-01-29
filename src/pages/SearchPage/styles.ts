@@ -19,8 +19,8 @@ margin-left: 35px;
 a {
   text-decoration: none;
   display:flex;
-align-items: center;
-justify-content:start;
+  align-items: center;
+  justify-content:start;
 
 }
 
@@ -36,7 +36,18 @@ export const DivHeader = styled.div`
   justify-content: space-between;
   margin-right:23px;
   margin-right: 140px;
+  div{
+a{
+  color: #FFF;
+  text-decoration: none;
+  display:flex;
+  align-items: center;
+  justify-content:start;
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
 
+}
+}
 `;
 
 export const Span = styled.p`

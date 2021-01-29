@@ -66,15 +66,18 @@ ${err}`);
       <DivHeader>
         <Logo />
         <Div>
-          <a href={`/profile-admin/${adminId?.idOwner.id}`}>
-            <TitleProfile>
-              Seja bem vindo
-              {' '}
-              <br />
-              {' '}
-              {adminId?.idOwner.fullNameAdmin != null ? adminId?.idOwner.fullNameAdmin : 'Carregando...'}
-            </TitleProfile>
-          </a>
+          <div>
+            <a href={`/profile-admin/${adminId?.idOwner.id}`}>
+              <TitleProfile>
+                Seja bem vindo
+                {' '}
+                <br />
+                {' '}
+                {adminId?.idOwner.fullNameAdmin != null ? adminId?.idOwner.fullNameAdmin : 'Carregando...'}
+              </TitleProfile>
+            </a>
+            <a onClick={async () => { await api.delete(`/admin-token/delete-token321/${params.id}`); }} href="/">Sair</a>
+          </div>
         </Div>
       </DivHeader>
       <DivBack>
