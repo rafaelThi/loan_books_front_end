@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
+export const DivButton = styled.div`
+display:flex;
+align-items:center;
+justify-content:space-between;
+`;
+
 export const Button = styled.button`
 font-size: 15px;
 width: 200px;
@@ -10,8 +16,8 @@ border-radius: 10px;
 border: 0;
 color: #fff;
 font-weight: bold;
-margin-left: 37px;
-margin-top:-10px;
+margin-right: 37px;
+margin-top:25px;
 transition: background-color 0.2s;
 &:hover {
   background: ${shade(0.2, '#04d361')}

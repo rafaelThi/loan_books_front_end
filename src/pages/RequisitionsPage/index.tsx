@@ -7,7 +7,7 @@ import api from '../../server/api';
 import { Title } from '../HomePage/styles';
 import { DivBack } from '../RegisterBook/styles';
 import {
-  Books, Container, Div1, Div2, Div3, Div4, Div5, Button,
+  Books, Container, Div1, Div2, Div3, Div4, Div5, Button, DivButton,
 } from './styles';
 
 interface IParamsDTO {
@@ -55,13 +55,15 @@ const RequisitionsPage:React.FC = () => {
       <DivBack>
         <BackButton />
       </DivBack>
-      <Title>Essas são todas as suas requisições:</Title>
-      <Button
-        onClick={() => { history.push(`/request-accept/${id_admin}`); }}
-        type="button"
-      >
-        Ir para as aceitas
-      </Button>
+      <DivButton>
+        <Title>Essas são todas as suas requisições:</Title>
+        <Button
+          onClick={() => { history.push(`/request-accept/${id_admin}`); }}
+          type="button"
+        >
+          Ir para as aceitas
+        </Button>
+      </DivButton>
       {requistitions.map((requisi) => (
         <Container key={requisi.id}>
           <Books>
