@@ -32,7 +32,7 @@ export const Container = styled.div`
 input{
   display:block;
   height: 50px;
-  width:400px;
+  width:500px;
   padding:0 14px;
   border: 0;
   border-radius:5px;

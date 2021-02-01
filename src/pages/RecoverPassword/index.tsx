@@ -20,7 +20,7 @@ const RecoverPassword:React.FC = () => {
       const email = stateEmail;
 
       // console.log({ email, password });
-      alert('Estamos enviado a solicitação, isso pode levar alguns segundos');
+      alert('Estamos processando sua solicitação, isso pode levar alguns segundos');
       const schema = Yup.object().shape({
         email: Yup.string()
           . required('Digite um e-mail válido.')
@@ -32,12 +32,21 @@ const RecoverPassword:React.FC = () => {
 
       await schema.validate({ email });
 
-      await api.post('/mail-provider/send-mail-recover-password', {
-        email,
-      });
+      const findUser = await api.get(`/users/list-user-email/${email}`);
 
-      alert('Email enviado para o endereço solicitado');
-      history.push('/login');
+      if (findUser.data.user) {
+        // const body = `Recuperação de senha para o email: ${email}.
+        // para recuperar sua senha basta clicar no link: http://localhost:3000/reset-password/${findUser.data.user.id}`;
+        await api.post('/mail-provider/send-mail-recover-password', {
+          email,
+          body: `Recuperação de senha para o email: ${email}.
+          Para recuperar sua senha basta clicar no link: http://localhost:3000/reset-password/${findUser.data.user.id}`,
+        });
+        alert('Email enviado para o endereço solicitado');
+        history.push('/login');
+      } else {
+        alert('Email não encontrado... Talvez você não tenha um conta conosco.');
+      }
     } catch (err) {
       alert('Digite um e-mail');
     }

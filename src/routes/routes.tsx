@@ -35,7 +35,7 @@ const Routes:React.FC = () => (
     <Route path="/request-accept/:id" component={RequestAccept} />
 
     <Route path="/recover-password" component={RecoverPassword} />
-    <Route path="/reset-password" component={ResetPassword} />
+    <Route path="/reset-password/:id" component={ResetPassword} />
     {/* Depois validar pelo token ou algo assim */}
 
     <Route path="/search/:token" component={SearchPage} />
