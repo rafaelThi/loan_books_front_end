@@ -24,6 +24,9 @@ const PageProfile:React.FC = () => {
 
   const [userId, setIdUser] = useState<IUser>();
 
+  const [emailUser, setEmailUser] = useState('');
+  const [password, setNewPassword] = useState('');
+
   useEffect(() => {
     api.get(`/users/list-user-id/${params.id}`).then((response) => {
       setIdUser(response.data);
@@ -31,6 +34,19 @@ const PageProfile:React.FC = () => {
     });
   }, [setIdUser, params]);
   console.log(userId, 'userId');
+
+  const handleNewPassword = async () => {
+    const user = await api.get(`/users/list-user-id/${params.id}`);
+    if (user.data.user.email === emailUser) {
+      await api.put(`/users/reset-password-user/${params.id}`, {
+        password,
+      });
+      alert('Nova senha salva');
+      document.location.reload(true);
+    } else {
+      alert('Puts... algo deu errado :/');
+    }
+  };
 
   return (
     <>
@@ -42,7 +58,7 @@ const PageProfile:React.FC = () => {
         {userId?.user.fullName}
       </Title>
       <Container>
-        <Form onSubmit={() => { console.log('ola mundo'); }}>
+        <Form onSubmit={handleNewPassword}>
           <H3>
             Email de Login:
             {' '}
@@ -52,21 +68,21 @@ const PageProfile:React.FC = () => {
             Caso queira mudar sua senha atua:
           </p>
           <span>
-            Senha antiga:
+            Seu email:
           </span>
           <input
-          // value={stateEmail}
-          // onChange={(e) => setStateEmail(e.target.value)}
-            name="oldPassword"
-            type="password"
-            placeholder="Digite sua senha antiga..."
+            value={emailUser}
+            onChange={(e) => setEmailUser(e.target.value)}
+            name="emailUser"
+            type="email"
+            placeholder="Digite seu email..."
           />
           <span>
             Nova senha:
           </span>
           <input
-          // value={statePassword}
-          // onChange={(e) => setStatePassword(e.target.value)}
+            value={password}
+            onChange={(e) => setNewPassword(e.target.value)}
             name="newPassword"
             type="password"
             placeholder="Digite sua nova senha..."

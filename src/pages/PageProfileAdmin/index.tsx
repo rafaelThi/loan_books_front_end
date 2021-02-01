@@ -24,6 +24,9 @@ const PageProfileAdmin:React.FC = () => {
 
   const [adminId, setIdAdmin] = useState<IAdmin>();
 
+  const [emailAdmin, setEmailAdmin] = useState('');
+  const [password, setNewPasswordAdmin] = useState('');
+
   useEffect(() => {
     api.get(`/users-book-owners/list-owner/${params.id}`).then((response) => {
       setIdAdmin(response.data);
@@ -31,6 +34,19 @@ const PageProfileAdmin:React.FC = () => {
     });
   }, [setIdAdmin, params]);
   console.log(adminId, 'userId');
+
+  const handleNewPassword = async () => {
+    const admin = await api.get(`/users-book-owners/list-owner/${params.id}`);
+    if (admin.data.idOwner.emailAdmin === emailAdmin) {
+      await api.put(`/users-book-owners/reset-password-admin/${params.id}`, {
+        password,
+      });
+      alert('Nova senha salva');
+      document.location.reload(true);
+    } else {
+      alert('Puts... algo deu errado :/');
+    }
+  };
 
   return (
     <>
@@ -42,7 +58,7 @@ const PageProfileAdmin:React.FC = () => {
         {adminId?.idOwner.fullNameAdmin}
       </Title>
       <Container>
-        <Form onSubmit={() => { console.log('ola mundo'); }}>
+        <Form onSubmit={handleNewPassword}>
           <H3>
             Email de Login:
             {' '}
@@ -52,21 +68,21 @@ const PageProfileAdmin:React.FC = () => {
             Caso queira mudar sua senha atua:
           </p>
           <span>
-            Senha antiga:
+            Seu email:
           </span>
           <input
-          // value={stateEmail}
-          // onChange={(e) => setStateEmail(e.target.value)}
-            name="oldPassword"
-            type="password"
+            value={emailAdmin}
+            onChange={(e) => setEmailAdmin(e.target.value)}
+            name="email"
+            type="email"
             placeholder="Digite sua senha antiga..."
           />
           <span>
             Nova senha:
           </span>
           <input
-          // value={statePassword}
-          // onChange={(e) => setStatePassword(e.target.value)}
+            value={password}
+            onChange={(e) => setNewPasswordAdmin(e.target.value)}
             name="newPassword"
             type="password"
             placeholder="Digite sua nova senha..."
