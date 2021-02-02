@@ -150,7 +150,17 @@ const RequisitionsPage:React.FC = () => {
 
                       alert('o Aceite esta sendo proessado, por favor aguarde alguns segundos ate a sua confirmação!');
 
+                      const requestAccept = await api.post('/requests/aceept',
+                        {
+                          id_request: requisi.id,
+                          id_book: requisi.IdBook.id,
+                          id_user: requisi.IdUser.id,
+                          id_admin: requisi.IdAdmin.id,
+                          message: textAccept,
+                        });
+
                       const sendMail = await api.post('/mail-provider/send-mail-request-return-accept', {
+                        idAccept: requestAccept.data.requestAccept.id,
                         nameBook: requisi.IdBook.name,
                         nameUser: requisi.IdUser.fullName,
                         nameAdmin: requisi.IdAdmin.fullNameAdmin,
@@ -162,14 +172,7 @@ const RequisitionsPage:React.FC = () => {
                         alert('Parece que algo deu errado, tente novamente');
                       }
                       alert('parece que tudo correu bem, um email foi encaminhado para você e o usuario');
-                      await api.post('/requests/aceept',
-                        {
-                          id_request: requisi.id,
-                          id_book: requisi.IdBook.id,
-                          id_user: requisi.IdUser.id,
-                          id_admin: requisi.IdAdmin.id,
-                          message: textAccept,
-                        });
+
                       await api.delete(`/requests/delete-request/${requisi.id}`);
                       document.location.reload(true);
                     } catch (err) {

@@ -29,13 +29,18 @@ const DevolutionPage:React.FC = () => {
 
   const [adminId, setIdAdmin] = useState<IAdmin>();
 
+  const [idDelete, setIdDelete] = useState('');
+
   useEffect(() => {
     api.get(`/users-book-owners/list-owner/${params.id}`).then((response) => {
       setIdAdmin(response.data);
       // console.log(response.data);
     });
   });
-
+  const handleDelete = async () => {
+    const deleteId = await api.delete(`/requests/delete-request-accept/${idDelete}`);
+    alert(`Livro devolvido!! ${deleteId}`);
+  };
   return (
     <>
       <DivHeader>
@@ -59,7 +64,7 @@ const DevolutionPage:React.FC = () => {
         <BackButton />
       </DivBack>
       <Container>
-        <Form ref={formRef} onSubmit={() => { console.log('devolução'); }}>
+        <Form ref={formRef} onSubmit={handleDelete}>
           <Title>
             Devolução do livro:
           </Title>
@@ -67,6 +72,8 @@ const DevolutionPage:React.FC = () => {
             Para efetuar a devolução deve ser prenchido o ID da requisição:
           </H3>
           <input
+            value={idDelete}
+            onChange={(e) => setIdDelete(e.target.value)}
             name="id"
             type="text"
             placeholder="Digite o ID..."

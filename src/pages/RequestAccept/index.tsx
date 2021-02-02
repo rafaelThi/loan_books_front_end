@@ -160,7 +160,6 @@ const RequestAccept:React.FC = () => {
                     onChange={(e) => setDelivered(e.target.value)}
                     name="date-delivered"
                     type="date"
-                    // placeholder="Digite uma data DD/MM/AAAA"
                   />
                   <button type="submit">Salvar</button>
                 </Form>
