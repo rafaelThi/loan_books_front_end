@@ -72,7 +72,7 @@ const RequestAccept:React.FC = () => {
       setIdAdmin(response.data);
       // console.log(response.data);
     });
-  });
+  }, [params.id]);
 
   return (
     <>

@@ -7,8 +7,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import api from '../../server/api';
-import { DivHeader } from '../HomePage/styles';
-import { Div, TitleProfile } from '../SearchPage/styles';
+import { Div, DivHeader, TitleProfile } from '../SearchPage/styles';
 import { Container, Title, DivBack } from './styles';
 
 interface IAdminDTO {
@@ -59,7 +58,7 @@ ${err}`);
       setIdAdmin(response.data);
       // console.log(response.data);
     });
-  });
+  }, [params.id]);
 
   return (
     <>

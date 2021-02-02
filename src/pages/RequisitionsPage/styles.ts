@@ -31,6 +31,7 @@ justify-content: center;
 align-items: center;
 text-align: center;
 color:#ffffff;
+margin-bottom:22px;
 
 button{
 font-size: 15px;
@@ -54,7 +55,7 @@ margin-left: 100px;
 margin-right: 5;
 color:#3D3D4D;
 
-margin-top:25px;
+margin-top:5px;
 max-width:700px;
 background: #fff;
 border-radius:25px;

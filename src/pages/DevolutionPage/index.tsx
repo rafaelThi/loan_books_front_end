@@ -36,10 +36,19 @@ const DevolutionPage:React.FC = () => {
       setIdAdmin(response.data);
       // console.log(response.data);
     });
-  });
+  }, [params.id]);
   const handleDelete = async () => {
-    const deleteId = await api.delete(`/requests/delete-request-accept/${idDelete}`);
-    alert(`Livro devolvido!! ${deleteId}`);
+    try {
+      const getRequest = await api.get(`/requests/get-request-accept/${idDelete}`);
+      if (getRequest.data.getRequest) {
+        await api.delete(`/requests/delete-request-accept/${idDelete}`);
+        alert('Livro devolvido!!');
+      } else {
+        throw new Error('Requisição não encontrada... Talvez você já tenha feito isso');
+      }
+    } catch (error) {
+      alert(`Ops, algo deu errado :/  ${error}`);
+    }
   };
   return (
     <>

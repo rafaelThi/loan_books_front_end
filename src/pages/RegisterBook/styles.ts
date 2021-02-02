@@ -11,6 +11,7 @@ color:#ffffff;
 text-align: center;
 margin-top: -20px;
 a {
+  font-weight: 700;
   text-decoration: none;
   display:flex;
   align-items: center;
@@ -52,9 +53,11 @@ button{
   width: 195px;
   height: 50px;
   background: #04D361;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 0;
   color: #fff;
+  margin:20px;
+  margin-bottom:28px;
   font-weight: bold;
   transition: background-color 0.2s;
   &:hover {

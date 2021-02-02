@@ -65,7 +65,7 @@ const RequisitionsPage:React.FC = () => {
       setIdAdmin(response.data);
       // console.log(response.data);
     });
-  });
+  }, [params.id]);
 
   const [textArea, setTextArea] = useState('');
   return (
