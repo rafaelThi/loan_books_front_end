@@ -44,7 +44,9 @@ const DevolutionPage:React.FC = () => {
         const history = await api.post('/history/history-accepts', {
           id_request_accept: getRequestAccept.data.getRequest.id,
           id_request: getRequestAccept.data.getRequest.id_request,
+          name_book: getRequestAccept.data.getRequest.IdBook.name,
           id_book: getRequestAccept.data.getRequest.id_book,
+          name_user: getRequestAccept.data.getRequest.IdUser.fullName,
           id_user: getRequestAccept.data.getRequest.id_user,
           id_admin: getRequestAccept.data.getRequest.id_admin,
           created_at: getRequestAccept.data.getRequest.created_at,

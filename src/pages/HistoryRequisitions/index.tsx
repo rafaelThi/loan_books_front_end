@@ -60,65 +60,60 @@ const HistoryRequisitions:React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { params } = useRouteMatch<IParamsDTO>();
-  const id_admin = params.id;
+  // const id_admin = params.id;
 
   const [adminId, setIdAdmin] = useState<IAdmin>();
 
-  const [requistitions, setRequisitions] = useState<IRequisition[]>([]);
+  // const [requistitions, setRequisitions] = useState<IRequisition[]>([]);
 
-  useEffect(() => {
-    const requisitions = api.get(`/history/history-accepts/${id_admin}`);
-    requisitions.then((requisition) => {
-      setRequisitions(requisition.data);
-    });
-  }, [id_admin]);
+  const [booksName, setBooksName] = useState<IRequisition[]>([]);
+
+  const [titleBook, setTitleBook] = useState('');
+
+  const [nameUser, setNameUser] = useState('');
+
+  // useEffect(() => {
+  //   const requisitions = api.get(`/history/history-accepts/${id_admin}`);
+  //   requisitions.then((requisition) => {
+  //     setRequisitions(requisition.data);
+  //   });
+  // }, [id_admin]);
   useEffect(() => {
     api.get(`/users-book-owners/list-owner/${params.id}`).then((response) => {
       setIdAdmin(response.data);
-      // console.log(response.data);
     });
   }, [params.id]);
 
   const handleSearchTitle = useCallback(async () => {
     try {
-      // const name = titleBook;
+      const name = titleBook;
 
-      // const schema = Yup.object().shape({
-      //   name: Yup.string().required('Digite o Título que busca.'),
-      // });
-      // await schema.validate({ name });
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Digite o Título que busca.'),
+      });
+      await schema.validate({ name });
 
-      // const response = await api.get(`/requisition-book/list-one-book-name/${name}`);
-      // setBooksName(response.data.findBookName);
-      // console.log(response.data.findBookName);
-
-      // const user_id = await api.get(`/users-token/token/${params.token}`);
-      // console.log(user_id.data.matchToken.IdUser.id);
-      // setBooksName(user_id.data.matchToken.IdUser.id);
-      // console.log(booksName);
+      const response = await api.get(`/history/history-books/${params.id}/${name}`);
+      setBooksName(response.data);
     } catch (err) {
-      alert('Ops, parece que não achamos o livro que busca, você pode confirmar a escrita ou buscar pelo autor ou linguagem.');
+      alert('Ops, parece que não achamos o livro que busca.');
     }
-  }, []);
-  const handleSearchAuthor = useCallback(async () => {
+  }, [params.id, titleBook]);
+  const handleSearchName = useCallback(async () => {
     try {
-      // const name = authorBook;
+      const name = nameUser;
 
-      // const schema = Yup.object().shape({
-      //   name: Yup.string().required('Digite o Autor que busca.'),
-      // });
-      // await schema.validate({ name });
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Digite o nome que busca.'),
+      });
+      await schema.validate({ name });
 
-      // const response = await api.get(`/requisition-book/list-one-book-author/${name}`);
-      // setBooksName(response.data.findBookAuthor);
-      // console.log(response.data.findBookAuthor);
-
-      // const user_id = await api.get(`/users-token/token/${params.token}`);
-      // console.log(user_id.data.matchToken.id_user);
+      const response = await api.get(`/history/history-user/${params.id}/${name}`);
+      setBooksName(response.data);
     } catch (err) {
-      alert('Ops, parece que não achamos o autor que busca, você pode confirmar a escrita ou buscar pelo nome do livro ou linguagem.');
+      alert('Ops, parece que não achamos o nome do usuário que busca.');
     }
-  }, []);
+  }, [nameUser, params.id]);
 
   return (
     <>
@@ -155,8 +150,8 @@ const HistoryRequisitions:React.FC = () => {
             <span>Titulo: </span>
             <DivBusca2>
               <input
-            // value={titleBook}
-            // onChange={(e) => setTitleBook(e.target.value)}
+                value={titleBook}
+                onChange={(e) => setTitleBook(e.target.value)}
                 name="titleBook"
                 type="text"
                 placeholder="Digite o nome do titulo..."
@@ -164,12 +159,12 @@ const HistoryRequisitions:React.FC = () => {
               <button type="submit">Pesquisar</button>
             </DivBusca2>
           </Form>
-          <Form onSubmit={handleSearchAuthor}>
+          <Form onSubmit={handleSearchName}>
             <span>Nome: </span>
             <DivBusca2>
               <input
-            // value={authorBook}
-            // onChange={(e) => setAuthorBook(e.target.value)}
+                value={nameUser}
+                onChange={(e) => setNameUser(e.target.value)}
                 name="authorBook"
                 type="text"
                 placeholder="Digite o nome..."
@@ -179,8 +174,8 @@ const HistoryRequisitions:React.FC = () => {
           </Form>
         </DivBusca>
       </Container>
-      {requistitions.map((requisi) => (
-        <Container key={requisi.id}>
+      { booksName.map((bookName) => (
+        <Container key={bookName.id}>
           <Books>
             <Div5>
               <Div3>
@@ -188,35 +183,35 @@ const HistoryRequisitions:React.FC = () => {
                   <strong>
                     Requisição feita por:
                     {' '}
-                    {requisi.IdUser.fullName}
+                    {bookName.IdUser.fullName}
                   </strong>
                 </Div1>
                 <Div1>
                   <strong>
                     Email:
                     {' '}
-                    {requisi.IdUser.email}
+                    {bookName.IdUser.email}
                   </strong>
                 </Div1>
                 <Div1>
                   <strong>
                     Livro requisitado:
                     {' '}
-                    {requisi.IdBook.name}
+                    {bookName.IdBook.name}
                   </strong>
                 </Div1>
                 <Div1>
                   <strong>
                     Aceita no dia:
                     {' '}
-                    {requisi.created_at.substr(0, 10)}
+                    {bookName.created_at.substr(0, 10)}
                   </strong>
                 </Div1>
                 <Div1>
                   <strong>
                     Entrega dia:
                     {' '}
-                    {requisi.delivered}
+                    {bookName.delivered}
                   </strong>
                 </Div1>
                 <Div1>
@@ -224,7 +219,7 @@ const HistoryRequisitions:React.FC = () => {
                     Como foi:
                     {' '}
                     "
-                    {requisi.message}
+                    {bookName.message}
                     "
                   </strong>
                 </Div1>
@@ -232,7 +227,7 @@ const HistoryRequisitions:React.FC = () => {
                   <strong>
                     Devolvido dia:
                     {' '}
-                    {requisi.devolution_at.substr(0, 10)}
+                    {bookName.devolution_at.substr(0, 10)}
                   </strong>
                 </Div1>
               </Div3>
