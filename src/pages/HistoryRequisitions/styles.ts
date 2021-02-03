@@ -36,6 +36,20 @@ transition: background-color 0.2s;
 }
 `;
 
+export const DivBusca = styled.div`
+    display:block;
+    align-items: center;
+    justify-content:start;
+    text-align: center;
+`;
+export const DivBusca2 = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content:start;
+    text-align: center;
+    margin: 15px;
+`;
+
 export const Container = styled.div`
 color:#3D3D4D;
 display:flex;
@@ -45,21 +59,49 @@ text-align: center;
 color:#ffffff;
 margin-bottom:22px;
 
+
+input{
+  display:block;
+
+  height: 40px;
+  width:450px;
+  padding:0 14px;
+  border: 0;
+  border-radius:10px;
+  color: #3a3a3a;
+  margin-bottom:25px;
+}
+input::placeholder {
+    color:#a8a8b3;
+  }
 button{
-font-size: 15px;
-width: 250px;
-height: 85px;
-background: #04D361;
-border-radius: 10px;
-border: 0;
-color: #fff;
-font-weight: bold;
-margin: 15px;
-transition: background-color 0.2s;
-&:hover {
-  background: ${shade(0.2, '#04d361')}
+  width: 210px;
+  height: 40px;
+  background: #04D361;
+  border-radius: 10px;
+  border: 0;
+  color: #fff;
+  font-weight: bold;
+  margin-top:-24px;
+  transition: background-color 0.2s;
+  margin-left: 10px;
+  &:hover {
+    background: ${shade(0.2, '#04d361')}
+  }
 }
+span {
+  display:flex;
+  text-align: start;
+  justify-content: start;
+  align-items: center;
+  margin-left: 12px;
+  margin-bottom: 4px;
+  margin-top:-18px;
+  font-size:18px;
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
 }
+
 `;
 
 export const Books = styled.div`
