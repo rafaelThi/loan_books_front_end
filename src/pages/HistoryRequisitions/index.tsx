@@ -99,6 +99,7 @@ const HistoryRequisitions:React.FC = () => {
       alert('Ops, parece que não achamos o livro que busca.');
     }
   }, [params.id, titleBook]);
+
   const handleSearchName = useCallback(async () => {
     try {
       const name = nameUser;
@@ -114,6 +115,15 @@ const HistoryRequisitions:React.FC = () => {
       alert('Ops, parece que não achamos o nome do usuário que busca.');
     }
   }, [nameUser, params.id]);
+
+  const handleAll = useCallback(async () => {
+    try {
+      const response = await api.get(`/history/history-all/${params.id}`);
+      setBooksName(response.data);
+    } catch (err) {
+      alert('Ops, parece que não achamos nada :/');
+    }
+  }, [params.id]);
 
   return (
     <>
@@ -165,11 +175,18 @@ const HistoryRequisitions:React.FC = () => {
               <input
                 value={nameUser}
                 onChange={(e) => setNameUser(e.target.value)}
-                name="authorBook"
+                name="user"
                 type="text"
                 placeholder="Digite o nome..."
               />
               <button type="submit">Pesquisar</button>
+            </DivBusca2>
+          </Form>
+          <Form onSubmit={handleAll}>
+            <span>Mostrar tudo: </span>
+            <br />
+            <DivBusca2>
+              <button type="submit">Mostrar</button>
             </DivBusca2>
           </Form>
         </DivBusca>
