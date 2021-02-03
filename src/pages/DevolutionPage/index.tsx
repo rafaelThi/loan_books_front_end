@@ -43,6 +43,7 @@ const DevolutionPage:React.FC = () => {
       if (getRequest.data.getRequest) {
         await api.delete(`/requests/delete-request-accept/${idDelete}`);
         alert('Livro devolvido!!');
+        document.location.reload(true);
       } else {
         throw new Error('Requisição não encontrada... Talvez você já tenha feito isso');
       }

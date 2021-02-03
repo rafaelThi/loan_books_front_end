@@ -1,19 +1,16 @@
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
-import React, { useEffect, useRef, useState } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
 import api from '../../server/api';
-import { DivBack } from '../RegisterBook/styles';
-import { Div, DivHeader, TitleProfile } from '../SearchPage/styles';
-import {
-  Books, Container, Div1, Div2, Div3, Div4, Div5, ImgOk, ImgX,
-} from './styles';
-import X from '../../assets/X.jpg';
-import OK from '../../assets/OK.jpg';
-import { Button, DivButton } from '../RequisitionsPage/styles';
 import { Title } from '../HomePage/styles';
+import { DivBack } from '../RegisterBook/styles';
+import {
+  Books, Container, Div1, Div3, Div5, DivButton, H3,
+} from './styles';
+import {
+  Div, DivHeader, TitleProfile,
+} from '../SearchPage/styles';
 
 interface IParamsDTO {
   id: string;
@@ -27,14 +24,12 @@ interface IAdmin {
     passwordAdmin: string;
   }
 }
+
 interface IRequisition {
   id: string;
   id_book: string;
   id_user: string;
   id_admin: string;
-  created_at: string;
-  message: string;
-  delivered: string;
   IdUser: {
     id:string;
     fullName: string;
@@ -50,27 +45,20 @@ interface IRequisition {
     emailAdmin: string;
   }
 }
-const RequestAccept:React.FC = () => {
+const HistoryRequisitions:React.FC = () => {
   const { params } = useRouteMatch<IParamsDTO>();
   const id_admin = params.id;
-
-  const history = useHistory();
-
-  const formRef = useRef<FormHandles>(null);
 
   const [adminId, setIdAdmin] = useState<IAdmin>();
 
   const [requistitions, setRequisitions] = useState<IRequisition[]>([]);
 
-  const [delivered, setDelivered] = useState('');
-
   useEffect(() => {
-    const requisitions = api.get(`/requests/requests-accept/${id_admin}`);
+    const requisitions = api.get(`/requests/requests-books/${id_admin}`);
     requisitions.then((requisition) => {
       setRequisitions(requisition.data);
     });
   }, [id_admin]);
-
   useEffect(() => {
     api.get(`/users-book-owners/list-owner/${params.id}`).then((response) => {
       setIdAdmin(response.data);
@@ -101,22 +89,17 @@ const RequestAccept:React.FC = () => {
         <BackButton />
       </DivBack>
       <DivButton>
-        <Title>Essas são todas as suas requisições aceitas:</Title>
-        <Button
-          onClick={() => { history.push(`/history-request/${id_admin}`); }}
-          type="button"
-        >
-          Ir para as aceitas
-        </Button>
+        <Title>Histórico de livros já devolvidos</Title>
       </DivButton>
+      <H3>
+        Basta digitar o título do livro que procura, ou o nome do usuário que deseja encontrar:
+      </H3>
       {requistitions.map((requisi) => (
         <Container key={requisi.id}>
           <Books>
             <Div5>
               <Div3>
                 <Div1>
-                  {requisi.delivered != null ? <ImgOk src={OK} alt="Ok" /> : <ImgX src={X} alt="x" /> }
-                  <br />
                   <strong>
                     Requisição feita por:
                     {' '}
@@ -133,50 +116,26 @@ const RequestAccept:React.FC = () => {
                 </Div1>
                 <Div1>
                   <strong>
-                    Aceita no dia:
+                    Requisição feita por:
                     {' '}
-                    {requisi.created_at.substr(0, 10)}
+                    {requisi.IdUser.fullName}
                   </strong>
                 </Div1>
                 <Div1>
                   <strong>
-                    Entregue no dia:
+                    Requisição feita por:
                     {' '}
-                    {requisi.delivered || 'Não entregue'}
+                    {requisi.IdUser.fullName}
                   </strong>
                 </Div1>
                 <Div1>
-                  <div>
-                    <strong>
-                      O como vai ser?
-                    </strong>
-                    <strong>{requisi.message}</strong>
-                  </div>
+                  <strong>
+                    Requisição feita por:
+                    {' '}
+                    {requisi.IdUser.fullName}
+                  </strong>
                 </Div1>
-                <Div2 />
               </Div3>
-              <Div4>
-                <strong>
-                  Quando será a entrega?
-                </strong>
-                <Form
-                  ref={formRef}
-                  onSubmit={async () => {
-                    await api.put(`/requests/request-delivered/${requisi.id}`, {
-                      delivered,
-                    });
-                    document.location.reload(true);
-                  }}
-                >
-                  <input
-                    value={delivered}
-                    onChange={(e) => setDelivered(e.target.value)}
-                    name="date-delivered"
-                    type="date"
-                  />
-                  <button type="submit">Salvar</button>
-                </Form>
-              </Div4>
             </Div5>
           </Books>
         </Container>
@@ -184,4 +143,4 @@ const RequestAccept:React.FC = () => {
     </>
   );
 };
-export default RequestAccept;
+export default HistoryRequisitions;

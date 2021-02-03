@@ -17,6 +17,7 @@ import PageChoiceAdmin from '../pages/PageChoiceAdmin';
 import DevolutionPage from '../pages/DevolutionPage';
 import RequisitionsPage from '../pages/RequisitionsPage';
 import RequestAccept from '../pages/RequestAccept';
+import HistoryRequisitions from '../pages/HistoryRequisitions';
 
 const Routes:React.FC = () => (
   <Switch>
@@ -33,6 +34,7 @@ const Routes:React.FC = () => (
     <Route path="/devolution-book/:id" component={DevolutionPage} />
     <Route path="/requisitions-book/:id" component={RequisitionsPage} />
     <Route path="/request-accept/:id" component={RequestAccept} />
+    <Route path="/history-request/:id" component={HistoryRequisitions} />
 
     <Route path="/recover-password" component={RecoverPassword} />
     <Route path="/reset-password/:id" component={ResetPassword} />
