@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
@@ -27,22 +28,27 @@ interface IAdmin {
 
 interface IRequisition {
   id: string;
+  id_request_accept: string;
+  id_request: string;
   id_book: string;
   id_user: string;
   id_admin: string;
+  created_at: string;
+  message: string;
+  delivered: string;
+  devolution_at: string;
+  IdBook: {
+    id: string;
+    name: string;
+  }
   IdUser: {
     id:string;
     fullName: string;
     email: string;
   }
-  IdBook: {
-    id: string;
-    name: string;
-  }
   IdAdmin:{
     id:string;
     fullNameAdmin: string;
-    emailAdmin: string;
   }
 }
 const HistoryRequisitions:React.FC = () => {
@@ -54,7 +60,7 @@ const HistoryRequisitions:React.FC = () => {
   const [requistitions, setRequisitions] = useState<IRequisition[]>([]);
 
   useEffect(() => {
-    const requisitions = api.get(`/requests/requests-books/${id_admin}`);
+    const requisitions = api.get(`/history/history-accepts/${id_admin}`);
     requisitions.then((requisition) => {
       setRequisitions(requisition.data);
     });
@@ -106,7 +112,13 @@ const HistoryRequisitions:React.FC = () => {
                     {requisi.IdUser.fullName}
                   </strong>
                 </Div1>
-                {' '}
+                <Div1>
+                  <strong>
+                    Email:
+                    {' '}
+                    {requisi.IdUser.email}
+                  </strong>
+                </Div1>
                 <Div1>
                   <strong>
                     Livro requisitado:
@@ -116,23 +128,32 @@ const HistoryRequisitions:React.FC = () => {
                 </Div1>
                 <Div1>
                   <strong>
-                    Requisição feita por:
+                    Aceita no dia:
                     {' '}
-                    {requisi.IdUser.fullName}
+                    {requisi.created_at.substr(0, 10)}
                   </strong>
                 </Div1>
                 <Div1>
                   <strong>
-                    Requisição feita por:
+                    Entrega dia:
                     {' '}
-                    {requisi.IdUser.fullName}
+                    {requisi.delivered}
                   </strong>
                 </Div1>
                 <Div1>
                   <strong>
-                    Requisição feita por:
+                    Como foi:
                     {' '}
-                    {requisi.IdUser.fullName}
+                    "
+                    {requisi.message}
+                    "
+                  </strong>
+                </Div1>
+                <Div1>
+                  <strong>
+                    Devolvido dia:
+                    {' '}
+                    {requisi.devolution_at.substr(0, 10)}
                   </strong>
                 </Div1>
               </Div3>
