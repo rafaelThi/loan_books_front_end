@@ -39,11 +39,25 @@ const DevolutionPage:React.FC = () => {
   }, [params.id]);
   const handleDelete = async () => {
     try {
-      const getRequest = await api.get(`/requests/get-request-accept/${idDelete}`);
-      if (getRequest.data.getRequest) {
-        await api.delete(`/requests/delete-request-accept/${idDelete}`);
-        alert('Livro devolvido!!');
-        document.location.reload(true);
+      const getRequestAccept = await api.get(`/requests/get-request-accept/${idDelete}`);
+      if (getRequestAccept.data.getRequest) {
+        const history = await api.post('/history/history-accepts', {
+          id_request_accept: getRequestAccept.data.getRequest.id,
+          id_request: getRequestAccept.data.getRequest.id_request,
+          id_book: getRequestAccept.data.getRequest.id_book,
+          id_user: getRequestAccept.data.getRequest.id_user,
+          id_admin: getRequestAccept.data.getRequest.id_admin,
+          created_at: getRequestAccept.data.getRequest.created_at,
+          message: getRequestAccept.data.getRequest.message,
+          delivered: getRequestAccept.data.getRequest.delivered,
+        });
+        if (history) {
+          await api.delete(`/requests/delete-request-accept/${idDelete}`);
+          alert('Livro devolvido!!');
+          document.location.reload(true);
+        } else {
+          throw new Error('Algo deu errado :/');
+        }
       } else {
         throw new Error('Requisição não encontrada... Talvez você já tenha feito isso');
       }
