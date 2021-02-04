@@ -67,8 +67,8 @@ const PageChoiceAdmin: React.FC = () => {
         </Div>
       </DivHeader>
       <Container>
-        <button type="button" onClick={handleRegister}>Ir para a página para registrar um novo livro</button>
-        <button type="submit" onClick={handleRequisitions}>Ir para a página de aceite ou recusa de requisições</button>
+        <button type="button" onClick={handleRegister}>Registrar um novo livro</button>
+        <button type="submit" onClick={handleRequisitions}>Aceita ou recusa requisições</button>
       </Container>
       <Container>
         <button type="submit" onClick={handleDevolution}>Devolver um livro</button>

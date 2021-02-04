@@ -75,7 +75,7 @@ const PageProfileAdmin:React.FC = () => {
             onChange={(e) => setEmailAdmin(e.target.value)}
             name="email"
             type="email"
-            placeholder="Digite sua senha antiga..."
+            placeholder="Digite seu email..."
           />
           <span>
             Nova senha:

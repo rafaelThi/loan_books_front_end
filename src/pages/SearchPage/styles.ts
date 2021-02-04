@@ -51,6 +51,8 @@ a{
 `;
 
 export const Span = styled.p`
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
   display:flex;
   text-align: start;
   justify-content: start;

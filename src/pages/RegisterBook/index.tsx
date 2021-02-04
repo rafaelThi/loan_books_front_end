@@ -83,11 +83,10 @@ ${err}`);
         <BackButton />
       </DivBack>
       <Title>
-        Para criar uma conta é muito facil, basta
-        {' '}
+        Para adicionar um livro todos os campos devem
         <br />
         {' '}
-        preencher seus dados abaixo!
+        ser preenchidos:
       </Title>
       <Container>
         <Form ref={formRef} onSubmit={handleRegisterUser}>

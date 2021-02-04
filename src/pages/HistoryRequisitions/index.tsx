@@ -186,7 +186,7 @@ const HistoryRequisitions:React.FC = () => {
             <span>Mostrar tudo: </span>
             <br />
             <DivBusca2>
-              <button type="submit">Mostrar</button>
+              <button type="submit">Mostrar tudo</button>
             </DivBusca2>
           </Form>
         </DivBusca>

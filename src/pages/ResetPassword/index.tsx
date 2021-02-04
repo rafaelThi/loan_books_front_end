@@ -60,14 +60,14 @@ const ResetPassword:React.FC = () => {
     <>
       <Logo />
       <Title>
-        Digite uma nova senha:
+        Registrar uma nova senha:
       </Title>
       <Container>
         <Form ref={formRef} onSubmit={handleSubmit}>
           <H3>
             Para resetar a senha, digite seu email de login, para garantirmos
             <br />
-            que é você mesmo e sua nova senha
+            que é você mesmo, e então sua nova senha:
           </H3>
           <input
             value={stateEmail}

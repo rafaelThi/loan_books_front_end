@@ -76,7 +76,7 @@ const RecoverPassword:React.FC = () => {
             onChange={(e) => setStateEmail(e.target.value)}
             name="email"
             type="email"
-            placeholder="E-mail"
+            placeholder="Digite seu e-mail..."
           />
           <button type="submit">Enviar</button>
         </Form>

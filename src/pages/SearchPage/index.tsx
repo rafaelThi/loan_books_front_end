@@ -155,7 +155,9 @@ const SearchPage: React.FC = () => {
         <H3>
           Basta digitar o título, nome do autor ou a linguagem do livro que deseja encontrar;
         </H3>
+        <br />
         <Span>Pesquisar por; </Span>
+        <br />
         <Form ref={formRef} onSubmit={handleSearchTitle}>
           <br />
           <span>Titulo: </span>
