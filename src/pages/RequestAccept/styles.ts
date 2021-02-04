@@ -33,6 +33,7 @@ margin-right: 5;
 color:#3D3D4D;
 
 margin-top:25px;
+min-width:850px;
 max-width:850px;
 background: #fff;
 border-radius:25px;

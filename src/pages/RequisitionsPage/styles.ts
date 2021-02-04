@@ -57,6 +57,7 @@ color:#3D3D4D;
 
 margin-top:5px;
 max-width:700px;
+min-width:700px;
 background: #fff;
 border-radius:25px;
 padding-inline: 20px;
