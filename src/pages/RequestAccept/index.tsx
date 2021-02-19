@@ -106,7 +106,7 @@ const RequestAccept:React.FC = () => {
           onClick={() => { history.push(`/history-request/${id_admin}`); }}
           type="button"
         >
-          Ir para o histórico de aceitas
+          Ir para o historico de devolução
         </Button>
       </DivButton>
       {requistitions.map((requisi) => (
