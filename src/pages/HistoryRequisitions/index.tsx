@@ -1,10 +1,9 @@
-/* eslint-disable react/no-unescaped-entities */
 import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
-import { useRouteMatch } from 'react-router-dom';
-import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import { useRouteMatch } from 'react-router-dom';
 import * as Yup from 'yup';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
@@ -60,11 +59,8 @@ const HistoryRequisitions:React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { params } = useRouteMatch<IParamsDTO>();
-  // const id_admin = params.id;
 
   const [adminId, setIdAdmin] = useState<IAdmin>();
-
-  // const [requistitions, setRequisitions] = useState<IRequisition[]>([]);
 
   const [booksName, setBooksName] = useState<IRequisition[]>([]);
 
@@ -72,12 +68,6 @@ const HistoryRequisitions:React.FC = () => {
 
   const [nameUser, setNameUser] = useState('');
 
-  // useEffect(() => {
-  //   const requisitions = api.get(`/history/history-accepts/${id_admin}`);
-  //   requisitions.then((requisition) => {
-  //     setRequisitions(requisition.data);
-  //   });
-  // }, [id_admin]);
   useEffect(() => {
     api.get(`/users-book-owners/list-owner/${params.id}`).then((response) => {
       setIdAdmin(response.data);
