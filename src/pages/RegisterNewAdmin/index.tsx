@@ -5,7 +5,16 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import BackButton from '../../components/BackButton';
 import Logo from '../../components/Logo';
+import api from '../../server/api';
 import { Container, Title } from './styles';
+
+interface IResp {
+data:{
+  admin:{
+    fullNameAdmin: string;
+    emailAdmin: string;
+  }}
+}
 
 const RegisterNewAdmin:React.FC = () => {
   const formRef = useRef<FormHandles>(null);
@@ -36,6 +45,12 @@ const RegisterNewAdmin:React.FC = () => {
 
       await schema.validate({ name, email, password });
 
+      const resp: IResp = await api.post('/users-book-owners/create-owners', {
+        fullNameAdmin: stateName,
+        emailAdmin: stateEmail,
+        passwordAdmin: statePassword,
+      });
+      alert(`Seja bem vindo ${resp.data.admin.fullNameAdmin}, Seu logion foi criado com o email: ${resp.data.admin.emailAdmin}`);
       history.push('/admin-login');
     } catch (err) {
       alert(`Digite todos os dados.
