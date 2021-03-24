@@ -13,8 +13,6 @@ interface IAdmin {
   idOwner: {
     id:string;
     fullNameAdmin: string;
-    emailAdmin: string;
-    passwordAdmin: string;
   }
 }
 
@@ -43,7 +41,6 @@ const PageChoiceAdmin: React.FC = () => {
   useEffect(() => {
     api.get(`/users-book-owners/list-owner/${params.id}`).then((response) => {
       setIdAdmin(response.data);
-      // console.log(response.data);
     });
   }, [params.id]);
 
